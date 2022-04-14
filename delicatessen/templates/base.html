@@ -2,18 +2,18 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'articles_home' %}">Home</a>
+        <a class="navbar-brand" href="{% url 'foods_home' %}">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'article_create_view' %}">Create</a>
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'foods_home' %}">FOODS</a>
             </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'article_search_view' %}">Search</a>
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'food_create' %}">CREATE FOOD</a>
             </li>
           </ul>
         </div>

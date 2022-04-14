@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<ul>
+    <div class="list-group">
+    {% for food in foods %}
+
+
+
+        <a href='/foods/{{ food.id }}/' class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{food.name}}</h5>
+                <small>{{food.status}}</small>
+            </div>
+            <p class="mb-1">{{food.description}}</p>
+        </a>
+
+
+    {% endfor %}
+    </div> 
+</ul>
+
+
+{% endblock %}
