@@ -1,14 +1,19 @@
 from django.contrib import admin
 from django.urls import path, include
 from orders.views import (
-    foods_home,
-    food_detail_view,
-    food_create_view
+    product_home,
+    product_detail_view,
+    product_create_view,
+    order_menu_view,
+    order_update_item_view
 )
 
 urlpatterns = [
     # path('', orders_home, name='orders_home'),
-    path('foods/', foods_home, name='foods_home'),
-    path('foods/create/', food_create_view, name='food_create'),
-    path('foods/<int:id>/', food_detail_view, name='food_detail'),
+    path('product/', product_home, name='product_home'),
+    path('product/create/', product_create_view, name='product_create'),
+    path('product/<int:id>/', product_detail_view, name='product_detail'),
+
+    path('order_menu/', order_menu_view, name='order_menu'),
+    path('order_update_item/', order_update_item_view, name='order_update_item'),
 ]
