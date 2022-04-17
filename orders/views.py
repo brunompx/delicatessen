@@ -2,37 +2,38 @@ import json
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.core import serializers
-from .models import Product, Category, Order, OrderItem
-from .forms import ProductForm
+from .models import Order, OrderItem
+from products.models import Product, Category
+# from .forms import ProductForm
 from .utils import  order_data
 from .serializers import OrderItemSerializer
 
-def product_home(request):
-    products = Product.objects.all()
-    context = {
-        "products": products,
-    }
-    return render(request, "product_home.html", context)
+# def product_home(request):
+#     products = Product.objects.all()
+#     context = {
+#         "products": products,
+#     }
+#     return render(request, "product_home.html", context)
 
-def product_detail_view(request, id=None):
-    product_obj = None
-    if id is not None:
-        product_obj = Product.objects.get(id=id)
-    context = {
-        "product": product_obj,
-    }
-    return render(request, "product_detail.html", context)
+# def product_detail_view(request, id=None):
+#     product_obj = None
+#     if id is not None:
+#         product_obj = Product.objects.get(id=id)
+#     context = {
+#         "product": product_obj,
+#     }
+#     return render(request, "product_detail.html", context)
 
-def product_create_view(request, id=None):
-    form = ProductForm(request.POST or None)
-    context = {
-        "form": form
-    }
-    if form.is_valid():
-        product_obj = form.save()
-        context['form'] = ProductForm()
-        return redirect(product_obj.get_absolute_url())
-    return render(request, "product_create.html")
+# def product_create_view(request, id=None):
+#     form = ProductForm(request.POST or None)
+#     context = {
+#         "form": form
+#     }
+#     if form.is_valid():
+#         product_obj = form.save()
+#         context['form'] = ProductForm()
+#         return redirect(product_obj.get_absolute_url())
+#     return render(request, "product_create.html")
     
 def order_menu_view(request):
     data = order_data(request)

@@ -2,6 +2,7 @@ from datetime import timezone
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from products.models import Product
 import random
 
 class Order(models.Model):
@@ -46,35 +47,7 @@ class Order(models.Model):
 
     def get_absolute_url(self):
         return reverse('order_detail', kwargs={'id': self.id})
-
-class Category(models.Model):
-    name = models.CharField(max_length=250)
-
-    def __str__(self):
-        return self.name
-
-class Product(models.Model):
-    disabled = 'Disabled'
-    enabled = 'Enabled'
-    STATUS = (
-        (disabled, disabled),
-        (enabled, enabled),
-    )
-    name = models.CharField(max_length=250, unique=True)
-    # slug = models.SlugField(max_length=100, unique=True, default=random.randint(200_000, 400_000))
-    description = models.TextField(null=True, blank=True)
-    # recipe = models.TextField(null=True, blank=True)
-    status = models.CharField(max_length=50, choices=STATUS)
-    price = models.FloatField(null=True, blank=True)
-    # num_order = models.IntegerField(default=0)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-    
-    def get_absolute_url(self):
-        return reverse('product_detail', kwargs={'id': self.id})
-
+        
 class OrderItem(models.Model):
     quantity = models.IntegerField(default=0)
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
