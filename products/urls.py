@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ProductList, ProductDetail
+from .views import ProductList, ProductDetail, ProductCreate, ProductUpdate, DeleteView
 
 
 urlpatterns = [
@@ -7,10 +7,10 @@ urlpatterns = [
     # path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
     # path('register/', RegisterPage.as_view(), name='register'),
 
-    path('product/', ProductList.as_view(), name='products'),
+    path('', ProductList.as_view(), name='products'),
     path('product/<int:pk>/', ProductDetail.as_view(), name='product'),
-    # path('product-create/', TaskCreate.as_view(), name='task-create'),
-    # path('product-update/<int:pk>/', TaskUpdate.as_view(), name='task-update'),
-    # path('product-delete/<int:pk>/', DeleteView.as_view(), name='task-delete'),
+    path('product-create/', ProductCreate.as_view(), name='product-create'),
+    path('product-update/<int:pk>/', ProductUpdate.as_view(), name='product-update'),
+    path('product-delete/<int:pk>/', DeleteView.as_view(), name='product-delete'),
     # path('product-reorder/', TaskReorder.as_view(), name='task-reorder'),
 ]
