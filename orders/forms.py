@@ -1,5 +1,5 @@
 from django import forms
-# from .models import Order, Category, Product, OrderItem
+from .models import Order
 
 
 
@@ -15,3 +15,15 @@ from django import forms
 #         if qs.exists():
 #             self.add_error('title', f"\"{name}\" already exists.")
 #         return data
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['name', 'comment', 'paid', 'delivered']
+
+    def clean(self):
+        data = self.cleaned_data
+        name = data.get("name")
+        if not name:
+            self.add_error("title", f"\"{name}\" is required.")
+        return data

@@ -1,39 +1,16 @@
 import json
-from django.shortcuts import render, redirect
+from datetime import datetime, timedelta
+from django.shortcuts import render
 from django.http import JsonResponse
-from django.core import serializers
+from django.views.generic.list import ListView
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from .models import Order, OrderItem
-from products.models import Product, Category
-# from .forms import ProductForm
 from .utils import  order_data
 from .serializers import OrderItemSerializer
+from .forms import OrderForm
+from products.models import Product, Category
 
-# def product_home(request):
-#     products = Product.objects.all()
-#     context = {
-#         "products": products,
-#     }
-#     return render(request, "product_home.html", context)
-
-# def product_detail_view(request, id=None):
-#     product_obj = None
-#     if id is not None:
-#         product_obj = Product.objects.get(id=id)
-#     context = {
-#         "product": product_obj,
-#     }
-#     return render(request, "product_detail.html", context)
-
-# def product_create_view(request, id=None):
-#     form = ProductForm(request.POST or None)
-#     context = {
-#         "form": form
-#     }
-#     if form.is_valid():
-#         product_obj = form.save()
-#         context['form'] = ProductForm()
-#         return redirect(product_obj.get_absolute_url())
-#     return render(request, "product_create.html")
     
 def order_menu_view(request):
     data = order_data(request)
@@ -50,6 +27,7 @@ def order_menu_view(request):
         'order':order
         }
     return render(request, 'order_menu.html', context)
+
 
 def order_update_item_view(request):
     data = json.loads(request.body)
@@ -75,3 +53,47 @@ def order_update_item_view(request):
     items = order.orderitem_set.all()
     serielizer = OrderItemSerializer(items, many=True)
     return JsonResponse(serielizer.data, safe=False, status=200, content_type="application/json")  #TODO: devolver los datos de la orden para mostrar en esa pantalla
+
+
+@api_view(['GET'])
+def order_item_list(request):
+    user = request.user
+    order, created = Order.objects.get_or_create(user=user, complete=False)
+    items = order.orderitem_set.all()
+    serializer = OrderItemSerializer(items, many=True)
+    return Response(serializer.data)
+
+
+def order_checkout_view(request):
+    data = order_data(request)
+    order = data['order']
+    items = data['items']
+    items_count = data['items_count']
+    form = OrderForm(request.POST or None, instance=order)
+    context = {
+        'items': items,
+        'order': order,
+        'items_count': items_count,
+        'form': form
+        }
+    if form.is_valid():
+        order_object = form.save()
+        order_object.complete = True
+        order_object.save()
+    return render(request, 'order_checkout.html', context)
+
+
+class OrderList(ListView):
+    model = Order
+    context_object_name = 'orders'
+
+    def get_queryset(self):
+        # return Order.objects.filter(timestamp = (datetime.today() - timedelta(hours=1))).filter
+        queryset = Order.objects.all()
+        queryset = queryset.order_by('-timestamp')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['order_items'] = OrderItem.objects.all()
+        return context

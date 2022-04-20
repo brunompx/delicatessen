@@ -28,7 +28,7 @@ class ProductDetail(DetailView):
 
 class ProductCreate(LoginRequiredMixin, CreateView):
     model = Product
-    fields = '__all__'
+    fields = ['name', 'description', 'active', 'price', 'stock', 'category',]
     success_url = reverse_lazy('products')
 
     def form_valid(self, form):

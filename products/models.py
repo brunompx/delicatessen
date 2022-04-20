@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-# Create your models here.
+from django.utils.text import slugify
 
 
 class Category(models.Model):
@@ -10,23 +10,21 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
-    disabled = 'Disabled'
-    enabled = 'Enabled'
-    STATUS = (
-        (disabled, disabled),
-        (enabled, enabled),
-    )
     name = models.CharField(max_length=250, unique=True)
-    # slug = models.SlugField(max_length=100, unique=True, default=random.randint(200_000, 400_000))
+    slug = models.SlugField(max_length=100, unique=True)
     description = models.TextField(null=True, blank=True)
-    # recipe = models.TextField(null=True, blank=True)
-    status = models.CharField(max_length=50, choices=STATUS)
+    active = models.BooleanField(default = True)
     price = models.FloatField(null=True, blank=True)
     stock = models.IntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('product_detail', kwargs={'id': self.id})
+        return reverse('product_detail', kwargs={'slug': self.slug})

@@ -74,12 +74,10 @@ h1,h2,h3,h4,h5,h6{
 	display: inline-block;
 	font-weight: 700;
 	padding-right:10px;
-	
-
 }
 
 .chg-quantity{
-	width: 12px;
+	width: 28px;
 	cursor: pointer;
 	display: block;
 	margin-top: 5px;
@@ -90,6 +88,23 @@ h1,h2,h3,h4,h5,h6{
 	opacity: .6;
 }
 
+.checke{
+	display: inline-block;
+	font-weight: 700;
+	padding-right:10px;
+}
+
+.chg-checke{
+	width: 12px;
+	cursor: pointer;
+	display: block;
+	margin-top: 5px;
+	transition:.1s;
+}
+
+.chg-checke:hover{
+	opacity: .6;
+}
 
 .hidden{
 	display: none!important;
@@ -111,7 +126,7 @@ a {
 	font-weight: 600;
 }
 
-.container {
+.product-items-wrapper{
 	max-width: 550px;
 	margin: auto;
 	background-color: #fff;
