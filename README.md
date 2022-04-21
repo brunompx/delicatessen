@@ -1,2 +1,2 @@
 # delicatessen
-WebApp to manage food orders and stock.
+Django WebApp to manage food orders and stock.
