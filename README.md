@@ -1,2 +1,2 @@
 # delicatessen
-Sistem to manage food orders and stock.
+WebApp to manage food orders and stock.
