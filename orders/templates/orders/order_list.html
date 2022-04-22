@@ -21,27 +21,23 @@
                 </p>
             </div>
             <div class="card-footer">
-                <small class="text-muted">Paid</small>
-                {% if order.paid %}
-                <div class="quantity">
-                    <img data-product="${data[i].product_id}" data-action="add" class="add-item chg-quantity update-cart" src="/static/images/check-true.png">
+
+                <div class="form-check form-check-inline">
+                    <input class="order-check-input" type="checkbox" id="paid" value="{{order.id}}"
+                    {% if order.paid == True %}
+                    checked
+                    {% endif %} >
+                    <label class="form-check-label" for="inlineCheckbox1">Paid</label>
                 </div>
-                {% else %}
-                <div class="quantity">
-                    <img data-product="${data[i].product_id}" data-action="add" class="add-item chg-quantity update-cart" src="/static/images/check-false.png">
+                <div class="form-check form-check-inline">
+                    <input class="order-check-input" type="checkbox" id="delivered" value="{{order.id}}" 
+                    {% if order.delivered == True %}
+                    checked
+                    {% endif %} >
+                    <label class="form-check-label" for="inlineCheckbox2">Delivered</label>
                 </div>
-                {% endif %}
-                
-                <small class="text-muted">Delivered</small>
-                {% if order.delivered == True %}
-                <div class="quantity">
-                    <img data-product="${data[i].product_id}" data-action="add" class="add-item chg-quantity update-cart" src="/static/images/check-true.png">
-                </div>
-                {% else %}
-                <div class="quantity">
-                    <img data-product="${data[i].product_id}" data-action="add" class="add-item chg-quantity update-cart" src="/static/images/check-false.png">
-                </div>
-                {% endif %}
+
+
             </div>
         </div>
     </div>

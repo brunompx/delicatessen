@@ -1,26 +1,27 @@
 
+//Add listeners to update order items
 var updateBtns = document.getElementsByClassName('update-cart')
-
 for (i = 0; i < updateBtns.length; i++) {
 	updateBtns[i].addEventListener('click', function(){
-		updateOrder(this.dataset.product, this.dataset.action)
+		updateOrderItem(this.dataset.product, this.dataset.action)
 	})
 }
 
 var list_snapshot = []
 
+//Call list function on page load
 listItemsInOrder()
 
+//Function for the add and remove arrows
 function addItem(item){
-	updateOrder(item.product_id, "add")
+	updateOrderItem(item.product_id, "add")
 }
-
 function removeItem(item){
-	updateOrder(item.product_id, "remove")
+	updateOrderItem(item.product_id, "remove")
 }
 
-function updateOrder(productId, action) {
-	// console.log('-----updateOrder-----')
+//Add or remove item from Order
+function updateOrderItem(productId, action) {
 	var url = '/order_update_item/'
 	fetch(url, {
 		method:'POST',
@@ -30,14 +31,15 @@ function updateOrder(productId, action) {
 		}, 
 		body:JSON.stringify({'productId':productId, 'action':action})
 	})
-	.then((resp) => { return resp.json() })
+	.then((resp) => { return resp.json(); })
 	.then((data) => {
+		// location.reload()
 		listItemsInOrder()
 	});
 }
 
+//List order items in right panel
 function listItemsInOrder() {
-	// console.log('-----listItemsInOrder-----')
 	var wrapper = document.getElementById('summary')
 	// wrapper.innerHTML = ''
 	
@@ -96,6 +98,35 @@ function listItemsInOrder() {
 				removeItem(data[i])
 			})
 		}
+	});
+}
 
+var orderCheckbox = document.getElementsByClassName('order-check-input')
+for (i = 0; i < orderCheckbox.length; i++) {
+	orderCheckbox[i].addEventListener('change', e => {
+		var checked = false;
+		if(e.target.checked){
+			checked = true;
+		}
+		console.log("checkeado-"+e.target.id+e.target.value)
+		updateOrderChecks(e.target.value, e.target.id, checked)
+	})
+}
+
+//Updaye Order paid/delivered boolean fields
+function updateOrderChecks(orderId, field, checked) {
+	// console.log('-----updateOrder-----')
+	var url = '/order_update_checkbox/'
+	fetch(url, {
+		method:'POST',
+		headers:{
+			'Content-Type':'application/json',
+			'X-CSRFToken':csrftoken,
+		}, 
+		body:JSON.stringify({'orderId':orderId, 'field':field, 'checked':checked})
+	})
+	.then((resp) => { return resp.json() })
+	.then((data) => {
+		location.reload()
 	});
 }

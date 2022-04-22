@@ -1,10 +1,16 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from products.models import Product
 import random
+
+# class LastCompletedManager(models.Manager):
+#     def get_queryset(self):
+#         current_time = datetime.now()
+#         past_time = current_time - timedelta(hours=24)
+#         return super().get_queryset().filter(completed=True, timestamp > past_time)
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

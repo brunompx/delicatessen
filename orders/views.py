@@ -1,10 +1,11 @@
 import json
 from datetime import datetime, timedelta
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.generic.list import ListView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
 from .models import Order, OrderItem
 from .utils import  order_data
 from .serializers import OrderItemSerializer
@@ -49,10 +50,7 @@ def order_update_item_view(request):
     orderItem.save()
     if orderItem.quantity <= 0:
         orderItem.delete()
-
-    items = order.orderitem_set.all()
-    serielizer = OrderItemSerializer(items, many=True)
-    return JsonResponse(serielizer.data, safe=False, status=200, content_type="application/json")  #TODO: devolver los datos de la orden para mostrar en esa pantalla
+    return JsonResponse('Item was added', safe=False)
 
 
 @api_view(['GET'])
@@ -80,6 +78,7 @@ def order_checkout_view(request):
         order_object = form.save()
         order_object.complete = True
         order_object.save()
+        return redirect('orders')
     return render(request, 'order_checkout.html', context)
 
 
@@ -88,8 +87,8 @@ class OrderList(ListView):
     context_object_name = 'orders'
 
     def get_queryset(self):
-        # return Order.objects.filter(timestamp = (datetime.today() - timedelta(hours=1))).filter
-        queryset = Order.objects.all()
+        time_filter = datetime.today() - timedelta(hours=54)
+        queryset = Order.objects.filter(timestamp__gt=time_filter, complete=True)
         queryset = queryset.order_by('-timestamp')
         return queryset
 
@@ -97,3 +96,18 @@ class OrderList(ListView):
         context = super().get_context_data(**kwargs)
         context['order_items'] = OrderItem.objects.all()
         return context
+
+
+def order_update_checkbox_view(request):
+    data = json.loads(request.body)
+    order_id = data['orderId']
+    field = data['field']
+    checked = data['checked']
+    order = Order.objects.get(id=order_id)
+    if field == 'paid':
+        order.paid = checked
+        order.save()
+    if field == 'delivered':
+        order.delivered = checked
+        order.save()
+    return JsonResponse('Order field updated', safe=False)
