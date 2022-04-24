@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'orders',
     'products',
+    'authentication',
+    'dashboard',
     'rest_framework',
+    'bootstrap_datepicker_plus',
 ]
 
 MIDDLEWARE = [

@@ -19,6 +19,7 @@ class Order(models.Model):
     comment = models.TextField(null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    checkout_date = models.DateTimeField(null=True, blank=True)
     complete = models.BooleanField(default = False)
     paid = models.BooleanField(default = False)
     delivered = models.BooleanField(default = False)

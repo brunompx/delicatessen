@@ -13,7 +13,7 @@ from .forms import OrderForm
 from products.models import Product, Category
 
     
-def order_menu_view(request):
+def order_new_view(request):
     data = order_data(request)
     order = data['order']           #TODO: Usarlo en esta pantalla, donde?? como??
     items = data['items']           #TODO: Usarlo en esta pantalla, donde?? como??
@@ -27,7 +27,7 @@ def order_menu_view(request):
         'items':items, 
         'order':order
         }
-    return render(request, 'order_menu.html', context)
+    return render(request, 'order_new.html', context)
 
 
 def order_update_item_view(request):
@@ -77,6 +77,8 @@ def order_checkout_view(request):
     if form.is_valid():
         order_object = form.save()
         order_object.complete = True
+        order_object.checkout_date = datetime.today()
+        order_object.price = order_object.get_order_total
         order_object.save()
         return redirect('orders')
     return render(request, 'order_checkout.html', context)
@@ -87,9 +89,9 @@ class OrderList(ListView):
     context_object_name = 'orders'
 
     def get_queryset(self):
-        time_filter = datetime.today() - timedelta(hours=54)
-        queryset = Order.objects.filter(timestamp__gt=time_filter, complete=True)
-        queryset = queryset.order_by('-timestamp')
+        time_filter = datetime.today() - timedelta(hours=200)
+        queryset = Order.objects.filter(complete=True, checkout_date__gt=time_filter)
+        queryset = queryset.order_by('-checkout_date')
         return queryset
 
     def get_context_data(self, **kwargs):

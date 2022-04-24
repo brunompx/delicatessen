@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+
+{{ form.non_field_errors }}
+{{ form.errors }}
+<form class="row gy-2 gx-5 align-items-center" action='.' method="POST">
+    {% csrf_token %}
+    <div class="col-auto">
+        <div class="input-group">
+            {{ form.from_date.errors }}
+            <label class="visually-hidden" for="{{ form.from_date.id_for_label }}">From:</label>
+            {{ form.from_date }}
+            {{ form.from_time.errors }}
+            <label class="visually-hidden" for="{{ form.from_time.id_for_label }}">From:</label>
+            {{ form.from_time }}
+        </div>
+    </div>
+    <div class="col-auto">
+        <div class="input-group">
+            {{ form.to_date.errors }}
+            <label class="visually-hidden" for="{{ form.to_date.id_for_label }}">From:</label>
+            {{ form.to_date }}
+            {{ form.to_time.errors }}
+            <label class="visually-hidden" for="{{ form.to_time.id_for_label }}">From:</label>
+            {{ form.to_time }}
+        </div>
+    </div>
+    <div class="col-auto">
+        {{ form.category.errors }}
+        <label class="visually-hidden" for="{{ form.category.id_for_label }}">Cat:</label>
+        {{ form.category }}
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+
+
+  {% if order_items %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Order</th>
+        <th scope="col">Product</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for item in order_items %}
+        <tr>
+            <td>{{item.order.checkout_date}}</td>
+            <td>{{item.order.name}}</td>
+            <td>{{item.product.name}}</td>
+            <td>{{item.quantity}}</td>
+            <td>$ {{item.price_total}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+{% endblock %}
+
+

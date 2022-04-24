@@ -10,7 +10,7 @@
         <div class="card h-100">
             <div class="card-body" style="background-color: #ffca7a">
                 <h5 class="card-title">{{order.name}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{order.timestamp}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{order.checkout_date}}</h6>
                 <h6 class="card-subtitle mb-2 text-muted">{{order.comment}}</h6>
                 <p class="card-text">
                     {% for item in order_items %}

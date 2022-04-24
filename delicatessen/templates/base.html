@@ -62,18 +62,28 @@
 <body>
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-md navbar-light bg-light justify-content-center">
   <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'order_menu' %}">Order Menu</a>
+            <a class="nav-link" href="{% url 'order_new' %}">New Order</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'orders' %}">Orders</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'products' %}">Products</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'orders' %}">Orders</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dashboard
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'category_dash' %}">Categories</a></li>
+              <li><a class="dropdown-item" href="{% url 'product_dash' %}">Products</a></li>
+              <li><a class="dropdown-item" href="{% url 'order_dash' %}">Orders</a></li>
+            </ul>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin">admin</a>
