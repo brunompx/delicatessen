@@ -2,50 +2,54 @@
 {% load static %}
 {% block page_content %}
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
+<br>
+<div class="row">
 
     {% for order in orders %}
-
-    <div class="col">
-        <div class="card h-100">
-            <div class="card-body" style="background-color: #ffca7a">
-                <h5 class="card-title">{{order.name}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{order.checkout_date}}</h6>
-                <h6 class="card-subtitle mb-2 text-muted">{{order.comment}}</h6>
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{order.name}}</div>
+                        <h6 class="card-subtitle mb-2 text-muted">{{order.checkout_date}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">{{order.comment}}</h6>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
                 <p class="card-text">
                     {% for item in order_items %}
                         {% if item.order.slug == order.slug %}
                             -{{item.product.name}} x{{item.quantity}} <br>
                         {% endif %}
                     {% endfor %}
+                    $ {{order.price}}
                 </p>
             </div>
             <div class="card-footer">
-
                 <div class="form-check form-check-inline">
                     <input class="order-check-input" type="checkbox" id="paid" value="{{order.id}}"
                     {% if order.paid == True %}
                     checked
                     {% endif %} >
-                    <label class="form-check-label" for="inlineCheckbox1">Paid</label>
+                    <label class="form-check-label" for="inlineCheckbox1">-Paid</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="order-check-input" type="checkbox" id="delivered" value="{{order.id}}" 
                     {% if order.delivered == True %}
                     checked
                     {% endif %} >
-                    <label class="form-check-label" for="inlineCheckbox2">Delivered</label>
+                    <label class="form-check-label" for="inlineCheckbox2">-Delivered</label>
                 </div>
-
-
             </div>
         </div>
     </div>
-
     {% endfor %}
 
 </div>
-
 
 
 {% endblock %}

@@ -4,6 +4,12 @@
 
 {{ form.non_field_errors }}
 {{ form.errors }}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js" integrity="sha512-hZf9Qhp3rlDJBvAKvmiG+goaaKRZA6LKUO35oK6EsM0/kjPK32Yw7URqrq3Q+Nvbbt8Usss+IekL7CRn83dYmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<!-- ----- FORM ----- -->
+
 <form class="row gy-2 gx-5 align-items-center" action='.' method="POST">
     {% csrf_token %}
     <div class="col-auto">
@@ -36,29 +42,88 @@
     </div>
   </form>
 
+<!-- ----- END FORM ----- -->
 
-  {% if order_items %}
-  <table class="table">
-    <thead>
+<br>
+
+<!-- CHARTS -->
+<div class="row">
+  <!-- ----- LINE Chart ----- -->
+  <div class="col-xl-8 col-lg-7">
+      <div class="card shadow mb-4">
+          <!-- Card Header - Dropdown -->
+          <div
+              class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+          </div>
+          <!-- Card Body -->
+          <div class="card-body">
+              <div class="chart-area">
+                  <canvas id="lineChart"></canvas>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- ----- PIE Chart ----- -->
+  <div class="col-xl-4 col-lg-5">
+      <div class="card shadow mb-4">
+          <!-- Card Header - Dropdown -->
+          <div
+              class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+          </div>
+          <!-- Card Body -->
+          <div class="card-body">
+              <div class="chart-pie pt-4 pb-2">
+                  <canvas id="pieChart"></canvas>
+              </div>
+              <div class="mt-4 text-center small">
+                  <span class="mr-2">
+                      <i class="fas fa-circle text-primary"></i> Direct
+                  </span>
+                  <span class="mr-2">
+                      <i class="fas fa-circle text-success"></i> Social
+                  </span>
+                  <span class="mr-2">
+                      <i class="fas fa-circle text-info"></i> Referral
+                  </span>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- ----- Data Table ----- -->
+{% if order_items %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Order</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for item in order_items %}
       <tr>
-        <th scope="col">Date</th>
-        <th scope="col">Order</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Value</th>
+          <td>{{item.order.checkout_date}}</td>
+          <td>{{item.order.name}}</td>
+          <td>{{item.quantity}}</td>
+          <td>$ {{item.price_total}}</td>
       </tr>
-    </thead>
-    <tbody>
-        {% for item in order_items %}
-        <tr>
-            <td>{{item.order.checkout_date}}</td>
-            <td>{{item.order.name}}</td>
-            <td>{{item.quantity}}</td>
-            <td>$ {{item.price_total}}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-  </table>
-  {% endif %}
+      {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+<script type="text/javascript" src="{% static '/js/dash.js' %}"></script>
+<script type="text/javascript">
+
+displayPieChart({{ pie_data|safe }}, {{pie_labels|safe }});
+
+</script>
 
 {% endblock %}
 

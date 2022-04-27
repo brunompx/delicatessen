@@ -15,11 +15,31 @@ from django.shortcuts import redirect
 from django.db import transaction
 
 from .models import Product
+from .forms import ProductListForm
 
 
-class ProductList(ListView):
-    model = Product
-    context_object_name = 'products'
+def product_list_view(request):
+    context = {}
+    if request.method == 'POST':
+        form = ProductListForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            category = form.cleaned_data['category']
+            active = form.cleaned_data['active']
+            qs = Product.objects.filter(category=category)
+            qs = qs.order_by('category')
+            context['products'] = qs
+    else:
+        form = ProductListForm()
+        qs = Product.objects.filter(active=True)
+        context['products'] = qs
+    context['form'] = form
+    return render(request, 'product_list.html', context)
+
+# View CBV to show a list of products, reeplaces by FBV with form.
+# class ProductList(ListView):
+#     model = Product
+#     context_object_name = 'products'
     
 class ProductDetail(DetailView):
     model = Product
