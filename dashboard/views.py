@@ -1,5 +1,7 @@
+import json
 from django.shortcuts import render
 from .forms import FromToForm, SalesByCategoryForm, SalesByProductForm, SalesByOrderForm
+from .utils import  categories_amount_by_date_range
 from orders.models import OrderItem, Order
 
 
@@ -15,10 +17,16 @@ def sales_by_category_view(request):
             qs = OrderItem.objects.filter(product__category=category, order__checkout_date__range=(from_datetime, to_datetime))
             qs = qs.order_by('-order__checkout_date')
             context['order_items'] = qs
+
+            # data and labels for PIE chart
+            pie_data_map = categories_amount_by_date_range(from_datetime, to_datetime)
+            context['pie_data'] = json.dumps(pie_data_map['data'])
+            context['pie_labels'] = json.dumps(pie_data_map['labels'])
     else:
         form = SalesByCategoryForm()
     context['form'] = form
     return render(request, 'category_dash.html', context)
+
 
 def sales_by_product_view(request):
     context = {}
@@ -35,6 +43,7 @@ def sales_by_product_view(request):
         form = SalesByProductForm()
     context['form'] = form
     return render(request, 'product_dash.html', context)
+
 
 def sales_by_order_view(request):
     context = {}

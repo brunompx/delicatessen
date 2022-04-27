@@ -12,7 +12,9 @@ from .serializers import OrderItemSerializer
 from .forms import OrderForm
 from products.models import Product, Category
 
-    
+
+# Function Views ----------------------------------------------------------------
+
 def order_new_view(request):
     data = order_data(request)
     order = data['order']           #TODO: Usarlo en esta pantalla, donde?? como??
@@ -44,22 +46,12 @@ def order_update_item_view(request):
         orderItem.quantity = (orderItem.quantity + 1)
     elif action == 'remove':
         orderItem.quantity = (orderItem.quantity - 1)
-
     orderItem.price_individual = product.price
     orderItem.price_total = product.price * orderItem.quantity
     orderItem.save()
     if orderItem.quantity <= 0:
         orderItem.delete()
     return JsonResponse('Item was added', safe=False)
-
-
-@api_view(['GET'])
-def order_item_list(request):
-    user = request.user
-    order, created = Order.objects.get_or_create(user=user, complete=False)
-    items = order.orderitem_set.all()
-    serializer = OrderItemSerializer(items, many=True)
-    return Response(serializer.data)
 
 
 def order_checkout_view(request):
@@ -84,6 +76,34 @@ def order_checkout_view(request):
     return render(request, 'order_checkout.html', context)
 
 
+def order_update_checkbox_view(request):
+    data = json.loads(request.body)
+    order_id = data['orderId']
+    field = data['field']
+    checked = data['checked']
+    order = Order.objects.get(id=order_id)
+    if field == 'paid':
+        order.paid = checked
+        order.save()
+    if field == 'delivered':
+        order.delivered = checked
+        order.save()
+    return JsonResponse('Order field updated', safe=False)
+
+
+# API Views ----------------------------------------------------------------
+
+@api_view(['GET'])
+def order_item_list(request):
+    user = request.user
+    order, created = Order.objects.get_or_create(user=user, complete=False)
+    items = order.orderitem_set.all()
+    serializer = OrderItemSerializer(items, many=True)
+    return Response(serializer.data)
+
+
+# Class Views ----------------------------------------------------------------
+
 class OrderList(ListView):
     model = Order
     context_object_name = 'orders'
@@ -98,18 +118,3 @@ class OrderList(ListView):
         context = super().get_context_data(**kwargs)
         context['order_items'] = OrderItem.objects.all()
         return context
-
-
-def order_update_checkbox_view(request):
-    data = json.loads(request.body)
-    order_id = data['orderId']
-    field = data['field']
-    checked = data['checked']
-    order = Order.objects.get(id=order_id)
-    if field == 'paid':
-        order.paid = checked
-        order.save()
-    if field == 'delivered':
-        order.delivered = checked
-        order.save()
-    return JsonResponse('Order field updated', safe=False)
