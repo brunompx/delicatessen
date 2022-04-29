@@ -5,7 +5,6 @@ from orders.models import Order, OrderItem
 
 # Categrories data for PIE chart
 def categories_amount_by_date_range(query_set):
-    # query_set = OrderItem.objects.filter(order__checkout_date__range=(from_datetime, to_datetime))
     map_by_category = {}
     for order_item in query_set:
         category_name = order_item.product.category.name
@@ -19,7 +18,6 @@ def categories_amount_by_date_range(query_set):
 
 # Categrory data for LINE chart
 def category_count_by_date_range(query_set, from_datetime, to_datetime):
-
     days_count = get_dates_diff(from_datetime, to_datetime)
     data_map = {}
     increment_date = from_datetime
@@ -78,7 +76,6 @@ def map_to_chartmap(data_map):
 
 def get_dates_diff(from_datetime, to_datetime):
     days_count = (to_datetime - from_datetime).days
-    print('days count', days_count)
     return days_count
 
 def same_hour(datetime_a, datetime_b):

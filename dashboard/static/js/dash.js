@@ -46,7 +46,7 @@ function displayPieChart(pieData, pieLabels) {
             legend: {
                 display: false
             },
-            cutoutPercentage: 80,
+            cutoutPercentage: 70,
         },
     });
 }
@@ -62,13 +62,13 @@ function displayLineChart(lineData, lineLabels) {
                 label: "Quantity",
                 lineTension: 0.3,
                 backgroundColor: "rgba(78, 115, 223, 0.05)",
-                borderColor: "rgba(78, 115, 223, 1)",
+                borderColor: "#f56038",
                 pointRadius: 3,
-                pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                pointBorderColor: "rgba(78, 115, 223, 1)",
+                pointBackgroundColor: "#f7a325",
+                pointBorderColor: "#f56038",
                 pointHoverRadius: 3,
-                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                pointHoverBackgroundColor: "#f56038",
+                pointHoverBorderColor: "#f7a325",
                 pointHitRadius: 10,
                 pointBorderWidth: 2,
                 data: lineData,

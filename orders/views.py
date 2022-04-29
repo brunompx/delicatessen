@@ -3,6 +3,10 @@ from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import DeleteView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -76,20 +80,33 @@ def order_checkout_view(request):
     return render(request, 'order_checkout.html', context)
 
 
-def order_update_checkbox_view(request):
-    data = json.loads(request.body)
-    order_id = data['orderId']
-    field = data['field']
-    checked = data['checked']
-    order = Order.objects.get(id=order_id)
-    if field == 'paid':
-        order.paid = checked
-        order.save()
-    if field == 'delivered':
-        order.delivered = checked
-        order.save()
-    return JsonResponse('Order field updated', safe=False)
+# def order_update_checkbox_view(request):
+#     data = json.loads(request.body)
+#     order_id = data['orderId']
+#     field = data['field']
+#     checked = data['checked']
+#     order = Order.objects.get(id=order_id)
+#     if field == 'paid':
+#         order.paid = checked
+#         order.save()
+#     if field == 'delivered':
+#         order.delivered = checked
+#         order.save()
+#     return JsonResponse('Order field updated', safe=False)
 
+def order_update_paid_view(request, id=None):
+    if id is not None:
+        order = Order.objects.get(id=id)
+        order.paid = not order.paid
+        order.save()
+    return redirect('orders')
+
+def order_update_delivered_view(request, id=None):
+    if id is not None:
+        order = Order.objects.get(id=id)
+        order.delivered = not order.delivered
+        order.save()
+    return redirect('orders')
 
 # API Views ----------------------------------------------------------------
 
@@ -118,3 +135,16 @@ class OrderList(ListView):
         context = super().get_context_data(**kwargs)
         context['order_items'] = OrderItem.objects.all()
         return context
+
+class DeleteOrder(LoginRequiredMixin, DeleteView):
+    model = Order
+    context_object_name = 'order'
+    success_url = reverse_lazy('orders')
+    def get_queryset(self):
+        owner = self.request.user
+        return self.model.objects.filter(user=owner)
+
+class OrderUpdate(LoginRequiredMixin, UpdateView):
+    model = Order
+    fields = '__all__'
+    success_url = reverse_lazy('orders')

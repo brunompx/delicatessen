@@ -57,19 +57,21 @@ function listItemsInOrder() {
 
 			//remove the item to re-render
 			try{
-				document.getElementById(`cart-row-${i}`).remove()
+				document.getElementById(`oi-row-${i}`).remove()
 			}catch(err){
 			}
 
 			var item = `
-				<div id="cart-row-${i}" class="cart-row task-wrapper flex-wrapper">
-					<div style="flex:2"><p>${data[i].product_name}</p></div>
-					<div style="flex:1"><p>$ ${data[i].price_total}</p></div>
-					<div style="flex:1">
-						<p class="quantity">${data[i].quantity}</p>
-						<div class="quantity">
-						<img data-product="${data[i].product_id}" data-action="add" class="add-item chg-quantity update-cart" src="/static/images/arrow-up.png">
-						<img data-product="${data[i].product_id}" data-action="remove" class="remove-item chg-quantity update-cart" src="/static/images/arrow-down.png">
+				<div id="oi-row-${i}" class="d-flex w-100 justify-content-between mb-1 small">
+					<div class="d-flex w-50 justify-content-left">
+						<span>${data[i].product_name}</span>
+					</div>
+					<div class="d-flex w-50 justify-content-between">
+						<span>$${data[i].price_total}</span>
+						<span>${data[i].quantity} </span>
+						<div class="d-flex justify-content-rigth">
+							<span class="fa fa-caret-up fa-2x add-item" aria-hidden="true" data-product="${data[i].product_id}" id="add-item${data[i].product_id}"></span>
+							<span class="fa fa-caret-down fa-2x remove-item" aria-hidden="true" data-product="${data[i].product_id}" id="remove-item${data[i].product_id}"></span>
 						</div>
 					</div>
 				</div>
@@ -80,15 +82,15 @@ function listItemsInOrder() {
 		//remove extra item when an item is removed
 		if (list_snapshot.length > data.length){
 			for (var i = data.length; i < list_snapshot.length; i++){
-				document.getElementById(`cart-row-${i}`).remove()
+				document.getElementById(`oi-row-${i}`).remove()
 			}
 		}
 		list_snapshot = data
 
 		//add listeners to arros
 		for (let i in data) {
-			let arrowUpBtn = document.getElementsByClassName('add-item')[i]
-			let arrowDownBtn = document.getElementsByClassName('remove-item')[i]
+			let arrowUpBtn = document.getElementById('add-item'+data[i].product_id)
+			let arrowDownBtn = document.getElementById('remove-item'+data[i].product_id)
 
 			arrowUpBtn.addEventListener('click', function(){
 				addItem(data[i])

@@ -3,6 +3,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
+from django.db.models import Q
 
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -26,9 +27,20 @@ def product_list_view(request):
             name = form.cleaned_data['name']
             category = form.cleaned_data['category']
             active = form.cleaned_data['active']
-            qs = Product.objects.filter(category=category)
+            print(name)
+            print(category)
+            print(active)
+            q_filter = Q()
+            if name:
+                q_filter.add(Q(name__icontains=name), Q.AND)
+            if category:
+                q_filter.add(Q(category=category), Q.AND)
+            if not active:
+                q_filter.add(Q(active=True), Q.AND)
+            qs = Product.objects.filter(q_filter)
             qs = qs.order_by('category')
             context['products'] = qs
+
     else:
         form = ProductListForm()
         qs = Product.objects.filter(active=True)
@@ -36,7 +48,7 @@ def product_list_view(request):
     context['form'] = form
     return render(request, 'product_list.html', context)
 
-# View CBV to show a list of products, reeplaces by FBV with form.
+# View CBV to show a list of products, reeplaced by FBV with form.
 # class ProductList(ListView):
 #     model = Product
 #     context_object_name = 'products'

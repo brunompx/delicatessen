@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 {% block page_content %}
-
+{% load myfilters %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js" integrity="sha512-hZf9Qhp3rlDJBvAKvmiG+goaaKRZA6LKUO35oK6EsM0/kjPK32Yw7URqrq3Q+Nvbbt8Usss+IekL7CRn83dYmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+<br>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -11,38 +11,39 @@
     <div class="row">
     {{ form.non_field_errors }}
     {{ form.errors }}
-    <form class="row gy-2 gx-5 align-items-center" action='.' method="POST">
-        {% csrf_token %}
-        <div class="col-auto">
-            <div class="input-group">
-                {{ form.from_date.errors }}
-                <label class="visually-hidden" for="{{ form.from_date.id_for_label }}">From:</label>
-                {{ form.from_date }}
-                {{ form.from_time.errors }}
-                <label class="visually-hidden" for="{{ form.from_time.id_for_label }}">From:</label>
-                {{ form.from_time }}
+    <form class="form-inline" action='.' method="POST">
+        <div class="row align-items-center g-3">
+            {% csrf_token %}
+            <div class="col-auto">
+                <div class="input-group">
+                    {{ form.from_date.errors }}
+                    <label class="visually-hidden" for="{{ form.from_date.id_for_label }}">From:</label>
+                    {{ form.from_date|addclass:'form-control' }}
+                    {{ form.from_time.errors }}
+                    <label class="visually-hidden" for="{{ form.from_time.id_for_label }}">From:</label>
+                    {{ form.from_time|addclass:'form-control' }}
+                </div>
             </div>
-        </div>
-        <div class="col-auto">
-            <div class="input-group">
-                {{ form.to_date.errors }}
-                <label class="visually-hidden" for="{{ form.to_date.id_for_label }}">From:</label>
-                {{ form.to_date }}
-                {{ form.to_time.errors }}
-                <label class="visually-hidden" for="{{ form.to_time.id_for_label }}">From:</label>
-                {{ form.to_time }}
+            <div class="col-auto">
+                <div class="input-group">
+                    {{ form.to_date.errors }}
+                    <label class="visually-hidden" for="{{ form.to_date.id_for_label }}">From:</label>
+                    {{ form.to_date|addclass:'form-control' }}
+                    {{ form.to_time.errors }}
+                    <label class="visually-hidden" for="{{ form.to_time.id_for_label }}">From:</label>
+                    {{ form.to_time|addclass:'form-control' }}
+                </div>
             </div>
-        </div>
-        <div class="col-auto">
-            {{ form.category.errors }}
-            <label class="visually-hidden" for="{{ form.category.id_for_label }}">Cat:</label>
-            {{ form.category }}
-        </div>
-        <div class="col-auto">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="col-auto">
+                {{ form.category.errors }}
+                <label class="visually-hidden" for="{{ form.category.id_for_label }}">Cat:</label>
+                {{ form.category|addclass:'form-control' }}
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-outline-dark">Submit</button>
+            </div>
         </div>
     </form>
-
     </div>
     <!-- ----- END FORM ----- -->
 
