@@ -3,7 +3,6 @@ from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -13,7 +12,7 @@ from rest_framework.response import Response
 from .models import Order, OrderItem
 from .utils import  order_data
 from .serializers import OrderItemSerializer
-from .forms import OrderForm
+from .forms import OrderForm, OrderUpdateForm
 from products.models import Product, Category
 
 
@@ -21,8 +20,8 @@ from products.models import Product, Category
 
 def order_new_view(request):
     data = order_data(request)
-    order = data['order']           #TODO: Usarlo en esta pantalla, donde?? como??
-    items = data['items']           #TODO: Usarlo en esta pantalla, donde?? como??
+    order = data['order']
+    items = data['items']
     items_count = data['items_count']
     products = Product.objects.all()
     categories = Category.objects.all()
@@ -34,7 +33,6 @@ def order_new_view(request):
         'order':order
         }
     return render(request, 'order_new.html', context)
-
 
 def order_update_item_view(request):
     data = json.loads(request.body)
@@ -57,7 +55,6 @@ def order_update_item_view(request):
         orderItem.delete()
     return JsonResponse('Item was added', safe=False)
 
-
 def order_checkout_view(request):
     data = order_data(request)
     order = data['order']
@@ -79,21 +76,6 @@ def order_checkout_view(request):
         return redirect('orders')
     return render(request, 'order_checkout.html', context)
 
-
-# def order_update_checkbox_view(request):
-#     data = json.loads(request.body)
-#     order_id = data['orderId']
-#     field = data['field']
-#     checked = data['checked']
-#     order = Order.objects.get(id=order_id)
-#     if field == 'paid':
-#         order.paid = checked
-#         order.save()
-#     if field == 'delivered':
-#         order.delivered = checked
-#         order.save()
-#     return JsonResponse('Order field updated', safe=False)
-
 def order_update_paid_view(request, id=None):
     if id is not None:
         order = Order.objects.get(id=id)
@@ -107,6 +89,24 @@ def order_update_delivered_view(request, id=None):
         order.delivered = not order.delivered
         order.save()
     return redirect('orders')
+
+def order_update_view(request, id=None):
+    user = request.user
+    if id is not None:
+        Order.objects.filter(user=user, complete=False).delete()
+        order = Order.objects.get(user=user, id=id)
+        order.complete = False
+        order.save()
+    return redirect('order_new')
+
+def order_update_cancel_view(request, id=None):
+    user = request.user
+    if id is not None:
+        order = Order.objects.get(user=user, id=id)
+        order.complete = True
+        order.save()
+    return redirect('orders')
+
 
 # API Views ----------------------------------------------------------------
 
@@ -146,5 +146,5 @@ class DeleteOrder(LoginRequiredMixin, DeleteView):
 
 class OrderUpdate(LoginRequiredMixin, UpdateView):
     model = Order
-    fields = '__all__'
+    form_class = OrderUpdateForm
     success_url = reverse_lazy('orders')

@@ -2,108 +2,51 @@
 {% load static %}
 {% block page_content %}
 
-<div class="row">
-    <div class="col-lg-6">
+{% if order.name %}
+<br>
+<a  class="btn btn-outline-dark" href="{% url 'order-update-cancel' order.id %}">Cancel Update</a>
+<br>
+{% endif %}
 
-        <div class="accordion" id="accordionPanelsStayOpenExample">
-            {% for category in categories %}
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-heading{{ category.id }}">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{ category.id }}" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
-                        {{ category.name }}
-                    </button>
-                </h2>
-                <div id="panelsStayOpen-collapse{{ category.id }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading{{ category.id }}">
-                    <div class="accordion-body">
+<div class="container">
+    <br>
 
-                        <div class="container">
+    <div class="row">
+
+        <!-- Left -->
+        <div class="col-lg-7">
+            <div class="accordion" id="accordionPayment">
+                {% for category in categories %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-heading{{ category.id }}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapse{{ category.id }}" aria-expanded="false"
+                            aria-controls="panelsStayOpen-collapseOne">
+                            {{ category.name }}
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapse{{ category.id }}" class="accordion-collapse collapse"
+                        aria-labelledby="panelsStayOpen-heading{{ category.id }}">
+                        <div class="accordion-body">
                             {% for product in products %}
                                 {% if product.category.id == category.id %}
-                                <div class="row">
-                                    <div class="col">
-                                        {{product.name}}
+                                <div  class="d-flex w-100 justify-content-between ">
+                                    <div class="d-flex w-50 justify-content-left">
+                                        <span>{{product.name}}</span>
                                     </div>
-                                    <div class="col">
-                                        <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                                    <div class="d-flex w-50 justify-content-between">
+                                        <span>$ {{product.price|floatformat:2}}</span>
+                                        <span>{{product.stock}}</span>
+                                        <button data-product="{{product.id}}" data-action="add"
+                                                class="btn btn-outline-secondary add-btn update-cart btn-sm">Add</button>
                                     </div>
                                 </div>
                                 {% endif %}
                             {% endfor %}
                         </div>
-
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-
-    </div>
-
-    <div class="col-lg-6">
-        <div class="box-element">
-                <a  class="btn btn-outline-dark" href="{% url 'order_checkout' %}">Order Checkout</a>
-                <hr>
-                <h3>Order Summary</h3>
-                <hr>
-                <!-- <div id="summary"></div> -->
-
-                </div>
-                <h5>Items:   {{order.get_cart_items}}</h5>
-                <h5>Total:   ${{order.get_order_total|floatformat:2}}</h5>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-<!-- ###################################################################################################### -->
-
-
-
-
-
-
-<div class="container">
-    <h1 class="h3 mb-5">Payment</h1>
-    <div class="row">
-        
-        <!-- Left -->
-        <div class="col-lg-7">
-            <div class="accordion" id="accordionPayment">
-
-                {% for category in categories %}
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="panelsStayOpen-heading{{ category.id }}">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{ category.id }}" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
-                            {{ category.name }}
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapse{{ category.id }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading{{ category.id }}">
-                        <div class="accordion-body">
-    
-                            <div class="container">
-                                {% for product in products %}
-                                    {% if product.category.id == category.id %}
-                                    <div class="row">
-                                        <div class="col">
-                                            {{product.name}}
-                                        </div>
-                                        <div class="col">
-                                            <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-    
-                        </div>
                     </div>
                 </div>
                 {% endfor %}
-
             </div>
         </div>
 
@@ -112,14 +55,11 @@
             <div class="card position-sticky top-0">
                 <div class="p-3 bg-light bg-opacity-10">
                     <h6 class="card-title mb-3">Order Summary</h6>
-
                     <div id="summary">
-
                     </div>
-
                     <hr>
                     <div class="d-flex justify-content-between mb-4 small">
-                        <span>TOTAL</span> <strong class="text-dark">${{order.get_order_total|floatformat:2}}</strong>
+                        <span>TOTAL</span> <strong class="text-dark">$ {{order.get_order_total|floatformat:2}}</strong>
                     </div>
                     <a  class="btn btn-outline-dark w-100" href="{% url 'order_checkout' %}">Order Checkout</a>
                 </div>

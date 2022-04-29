@@ -1,22 +1,14 @@
-from django.shortcuts import render, redirect
-from django.views.generic.list import ListView
+from django.shortcuts import render
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.db.models import Q
-
-from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
 
-# Imports for Reordering Feature
-from django.views import View
 from django.shortcuts import redirect
-from django.db import transaction
 
 from .models import Product
-from .forms import ProductListForm
+from .forms import ProductListForm, ProductForm
 
 
 def product_list_view(request):
@@ -60,7 +52,8 @@ class ProductDetail(DetailView):
 
 class ProductCreate(LoginRequiredMixin, CreateView):
     model = Product
-    fields = ['name', 'description', 'active', 'price', 'stock', 'category',]
+    form_class = ProductForm
+    # fields = ['name', 'description', 'active', 'price', 'stock', 'category',]
     success_url = reverse_lazy('products')
 
     def form_valid(self, form):
@@ -69,7 +62,8 @@ class ProductCreate(LoginRequiredMixin, CreateView):
 
 class ProductUpdate(LoginRequiredMixin, UpdateView):
     model = Product
-    fields = '__all__'
+    form_class = ProductForm
+    # fields = '__all__'
     success_url = reverse_lazy('products')
 
 class DeleteView(LoginRequiredMixin, DeleteView):

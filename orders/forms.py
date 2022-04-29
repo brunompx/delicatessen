@@ -1,4 +1,4 @@
-from django import forms
+from django.forms import ModelForm, Textarea
 from .models import Order
 
 
@@ -16,11 +16,27 @@ from .models import Order
 #             self.add_error('title', f"\"{name}\" already exists.")
 #         return data
 
-class OrderForm(forms.ModelForm):
+class OrderForm(ModelForm):
     class Meta:
         model = Order
         fields = ['name', 'comment', 'paid', 'delivered']
+        widgets = {
+            'comment': Textarea(attrs={'rows': 2}),
+        }
+    def clean(self):
+        data = self.cleaned_data
+        name = data.get("name")
+        if not name:
+            self.add_error("title", f"\"{name}\" is required.")
+        return data
 
+class OrderUpdateForm(ModelForm):
+    class Meta:
+        model = Order
+        fields = ['name', 'comment', 'paid', 'delivered', 'price']
+        widgets = {
+            'comment': Textarea(attrs={'rows': 2}),
+        }
     def clean(self):
         data = self.cleaned_data
         name = data.get("name")

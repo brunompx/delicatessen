@@ -1,40 +1,90 @@
 {% extends "base.html" %}
 {% load static %}
+{% load myfilters %}
 {% block page_content %}
 
+<br>
+<a  class="btn btn-outline-dark" href="{% url 'order_new' %}">Back</a>
+<br>
 
-<div class="row">
-    <div class="col-lg-6">
-        <div class="box-element" id="form-wrapper">
-            <form action='.' method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button style='margin-top:10px;' type='submit' >Save Order</button>
-            </form>
+<div class="container">
+    <br>
+    <div class="row">
+
+        <!-- Left -->
+        <div class="col-lg-7">
+
+            <!-- ----- FORM ----- -->
+            <div class="row">
+                {{ form.non_field_errors }}
+                {{ form.errors }}
+                <form  action='.' method="POST">
+
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.name.errors }}
+                        <label for="{{ form.name.id_for_label }}" class="form-label">Name</label>
+                        {{ form.name|addclass:'form-control' }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.comment.errors }}
+                        <label for="{{ form.comment.id_for_label }}">Comment</label>
+                        {{ form.comment|addclass:'form-control' }}
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            {{ form.paid.errors }}
+                            {{ form.paid|addclass:'form-check-input' }}
+                            <label for="{{ form.paid.id_for_label }}">Paid</label>
+                        </div>             
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            {{ form.delivered.errors }}
+                            {{ form.delivered|addclass:'form-check-input' }}
+                            <label for="{{ form.delivered.id_for_label }}">Delivered</label>
+                        </div>             
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-outline-dark">Save Order</button>
+                    </div>
+                   
+                </form>
+            </div>
+            <!-- ----- END FORM ----- -->
+
+
         </div>
 
-        <br>
-        
-    </div>
 
-    <div class="col-lg-6">
-        <div class="box-element">
-            <a  class="btn btn-outline-dark" href="{% url 'order_new' %}">&#x2190; Back to Menu</a>
-            <hr>
-            <h3>Order Summary</h3>
-            <hr>
-            {% for item in items %}
-            <div class="cart-row">
-                <div style="flex:2"><p>{{item.product.name}}</p></div>
-                <div style="flex:1"><p>${{item.price_total|floatformat:2}}</p></div>
-                <div style="flex:1"><p>x{{item.quantity}}</p></div>
+
+        <!-- Right -->
+        <div class="col-lg-5">
+            <div class="card position-sticky top-0">
+                <div class="p-3 bg-light bg-opacity-10">
+                    <h6 class="card-title mb-3">Order Summary</h6>
+                    {% for item in items %}
+                    <div id="oi-row-${i}" class="d-flex w-100 justify-content-between mb-1 small">
+                        <div class="d-flex w-50 justify-content-left">
+                            <span>{{item.product.name}}</span>
+                        </div>
+                        <div class="d-flex w-50 justify-content-between">
+                            <span>$ {{item.price_total|floatformat:2}}</span>
+                            <span>x {{item.quantity}}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <hr>
+                    <div class="d-flex justify-content-between mb-4 small">
+                        <span>Items</span> <strong class="text-dark">{{order.get_order_items_count}}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-4 small">
+                        <span>TOTAL</span> <strong class="text-dark">$ {{order.get_order_total|floatformat:2}}</strong>
+                    </div>
+                </div>
             </div>
-            {% endfor %}
-            <h5>Items:   {{order.get_order_items_count}}</h5>
-            <h5>Total:   ${{order.get_order_total|floatformat:2}}</h5>
         </div>
     </div>
 </div>
-
 
 {% endblock %}
