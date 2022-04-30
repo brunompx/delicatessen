@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 {% block page_content %}
+{% load i18n %}
 
 {% if order.name %}
 <br>
-<a  class="btn btn-outline-dark" href="{% url 'order-update-cancel' order.id %}">Cancel Update</a>
+<a  class="btn btn-outline-dark" href="{% url 'order-update-cancel' order.id %}">{% translate 'cancellupdate' %}</a>
 <br>
 {% endif %}
 
@@ -54,14 +55,14 @@
         <div class="col-lg-5">
             <div class="card position-sticky top-0">
                 <div class="p-3 bg-light bg-opacity-10">
-                    <h6 class="card-title mb-3">Order Summary</h6>
+                    <h6 class="card-title mb-3">{% translate 'ordersummary' %}</h6>
                     <div id="summary">
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between mb-4 small">
                         <span>TOTAL</span> <strong class="text-dark">$ {{order.get_order_total|floatformat:2}}</strong>
                     </div>
-                    <a  class="btn btn-outline-dark w-100" href="{% url 'order_checkout' %}">Order Checkout</a>
+                    <a  class="btn btn-outline-dark w-100" href="{% url 'order_checkout' %}">{% translate 'ordercheckout' %}</a>
                 </div>
             </div>
         </div>

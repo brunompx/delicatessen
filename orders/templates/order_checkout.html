@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load static %}
 {% load myfilters %}
 {% block page_content %}
 
 <br>
-<a  class="btn btn-outline-dark" href="{% url 'order_new' %}">Back</a>
+<a  class="btn btn-outline-dark" href="{% url 'order_new' %}">{% translate 'goback' %}</a>
 <br>
 
 <div class="container">
@@ -23,30 +24,30 @@
                     {% csrf_token %}
                     <div class="mb-3">
                         {{ form.name.errors }}
-                        <label for="{{ form.name.id_for_label }}" class="form-label">Name</label>
+                        <label for="{{ form.name.id_for_label }}" class="form-label">{% translate 'name' %}</label>
                         {{ form.name|addclass:'form-control' }}
                     </div>
                     <div class="mb-3">
                         {{ form.comment.errors }}
-                        <label for="{{ form.comment.id_for_label }}">Comment</label>
+                        <label for="{{ form.comment.id_for_label }}">{% translate 'comment' %}</label>
                         {{ form.comment|addclass:'form-control' }}
                     </div>
                     <div class="mb-3">
                         <div class="form-check">
                             {{ form.paid.errors }}
                             {{ form.paid|addclass:'form-check-input' }}
-                            <label for="{{ form.paid.id_for_label }}">Paid</label>
+                            <label for="{{ form.paid.id_for_label }}">{% translate 'paid' %}</label>
                         </div>             
                     </div>
                     <div class="mb-3">
                         <div class="form-check">
                             {{ form.delivered.errors }}
                             {{ form.delivered|addclass:'form-check-input' }}
-                            <label for="{{ form.delivered.id_for_label }}">Delivered</label>
+                            <label for="{{ form.delivered.id_for_label }}">{% translate 'delivered' %}</label>
                         </div>             
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-outline-dark">Save Order</button>
+                        <button type="submit" class="btn btn-outline-dark">{% translate 'saveorder' %}</button>
                     </div>
                    
                 </form>
@@ -62,7 +63,7 @@
         <div class="col-lg-5">
             <div class="card position-sticky top-0">
                 <div class="p-3 bg-light bg-opacity-10">
-                    <h6 class="card-title mb-3">Order Summary</h6>
+                    <h6 class="card-title mb-3">{% translate 'ordersummary' %}</h6>
                     {% for item in items %}
                     <div id="oi-row-${i}" class="d-flex w-100 justify-content-between mb-1 small">
                         <div class="d-flex w-50 justify-content-left">

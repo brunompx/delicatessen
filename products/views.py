@@ -40,12 +40,12 @@ def product_list_view(request):
     context['form'] = form
     return render(request, 'product_list.html', context)
 
-# View CBV to show a list of products, reeplaced by FBV with form.
+# View CBV to show a list of products, reeplaced by FBV product_list_view.
 # class ProductList(ListView):
 #     model = Product
 #     context_object_name = 'products'
     
-class ProductDetail(DetailView):
+class ProductDetail(LoginRequiredMixin, DetailView):
     model = Product
     context_object_name = 'product'
     # template_name = 'base/task.html'

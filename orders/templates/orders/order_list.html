@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load static %}
 {% block page_content %}
 
@@ -39,14 +40,14 @@
                             </ol>
                             <div class="widget-49-meeting-action">
                                 {% if order.paid == True %}
-                                <a href="{% url 'order_update_paid' order.id %}" class="btn btn-sm btn-flash-border-warning btn-done">Paid</a>
+                                <a href="{% url 'order_update_paid' order.id %}" class="btn btn-sm btn-flash-border-warning btn-done">{% translate 'paid' %}</a>
                                 {% else %}
-                                <a href="{% url 'order_update_paid' order.id %}" class="btn btn-sm btn-flash-border-warning btn-not-done">Not Paid</a>
+                                <a href="{% url 'order_update_paid' order.id %}" class="btn btn-sm btn-flash-border-warning btn-not-done">{% translate 'notpaid' %}</a>
                                 {% endif %}
                                 {% if order.delivered == True %}
-                                <a href="{% url 'order_update_delivered' order.id %}" class="btn btn-sm btn-flash-border-warning btn-done">Delivered</a>
+                                <a href="{% url 'order_update_delivered' order.id %}" class="btn btn-sm btn-flash-border-warning btn-done">{% translate 'delivered' %}</a>
                                 {% else %}
-                                <a href="{% url 'order_update_delivered' order.id %}" class="btn btn-sm btn-flash-border-warning btn-not-done">Not Delivered</a>
+                                <a href="{% url 'order_update_delivered' order.id %}" class="btn btn-sm btn-flash-border-warning btn-not-done">{% translate 'notdelivered' %}</a>
                                 {% endif %}
                             </div>
                         </div>

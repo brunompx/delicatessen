@@ -14,7 +14,7 @@ import random
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=250, unique=True)
+    name = models.CharField(max_length=250)
     slug = models.SlugField(max_length=100, unique=True)
     comment = models.TextField(null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)

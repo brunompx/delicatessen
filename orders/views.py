@@ -73,6 +73,13 @@ def order_checkout_view(request):
         order_object.checkout_date = datetime.today()
         order_object.price = order_object.get_order_total
         order_object.save()
+        for item in order_object.orderitem_set.all():
+            product = Product.objects.get(id=item.product.id)
+            if product.stock > item.quantity:
+                product.stock -= item.quantity
+            else:
+                product.stock = 0
+            product.save()
         return redirect('orders')
     return render(request, 'order_checkout.html', context)
 
@@ -121,7 +128,7 @@ def order_item_list(request):
 
 # Class Views ----------------------------------------------------------------
 
-class OrderList(ListView):
+class OrderList(LoginRequiredMixin, ListView):
     model = Order
     context_object_name = 'orders'
 
