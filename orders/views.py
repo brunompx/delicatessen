@@ -23,7 +23,7 @@ def order_new_view(request):
     order = data['order']
     items = data['items']
     items_count = data['items_count']
-    products = Product.objects.all()
+    products = Product.objects.filter(user=request.user)
     categories = Category.objects.all()
     context = {
         'products':products, 
@@ -74,7 +74,7 @@ def order_checkout_view(request):
         order_object.price = order_object.get_order_total
         order_object.save()
         for item in order_object.orderitem_set.all():
-            product = Product.objects.get(id=item.product.id)
+            product = Product.objects.get(user=request.user, id=item.product.id)
             if product.stock > item.quantity:
                 product.stock -= item.quantity
             else:
@@ -134,7 +134,7 @@ class OrderList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         time_filter = datetime.today() - timedelta(hours=200)
-        queryset = Order.objects.filter(complete=True, checkout_date__gt=time_filter)
+        queryset = Order.objects.filter(user=self.request.user, complete=True, checkout_date__gt=time_filter)
         queryset = queryset.order_by('-checkout_date')
         return queryset
 

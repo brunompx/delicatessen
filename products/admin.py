@@ -3,7 +3,7 @@ from .models import Product, Category
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'description', 'category', 'slug', 'active']
+    list_display = ['id', 'user', 'name', 'description', 'category', 'slug', 'active']
     search_fields = ['id', 'name', 'category', 'status']
 
 class CategoryAdmin(admin.ModelAdmin):

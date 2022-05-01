@@ -59,10 +59,11 @@ def sales_by_product_view(request):
             context['order_items'] = qs
 
             # data and labels for PIE chart
-            category_name = qs[0].product.category
-            pie_data_map = products_amount_by_cat_date_range(category_name, from_datetime, to_datetime)
-            context['pie_data'] = json.dumps(pie_data_map['data'])
-            context['pie_labels'] = json.dumps(pie_data_map['labels'])
+            if qs:
+                category_name = qs[0].product.category
+                pie_data_map = products_amount_by_cat_date_range(category_name, from_datetime, to_datetime)
+                context['pie_data'] = json.dumps(pie_data_map['data'])
+                context['pie_labels'] = json.dumps(pie_data_map['labels'])
 
     else:
         form = SalesByProductForm()

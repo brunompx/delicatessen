@@ -23,6 +23,7 @@ def product_list_view(request):
             print(category)
             print(active)
             q_filter = Q()
+            q_filter.add(Q(user=request.user), Q.AND)
             if name:
                 q_filter.add(Q(name__icontains=name), Q.AND)
             if category:
@@ -35,7 +36,7 @@ def product_list_view(request):
 
     else:
         form = ProductListForm()
-        qs = Product.objects.filter(active=True)
+        qs = Product.objects.filter(user=request.user, active=True)
         context['products'] = qs
     context['form'] = form
     return render(request, 'product_list.html', context)
@@ -71,5 +72,5 @@ class DeleteView(LoginRequiredMixin, DeleteView):
     context_object_name = 'product'
     success_url = reverse_lazy('products')
     def get_queryset(self):
-        # owner = self.request.user
-        return self.model.objects
+        user = self.request.user
+        return self.model.objects.filter(user=user)
