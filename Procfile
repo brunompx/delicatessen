@@ -1,0 +1,1 @@
+web: gunicorn delicatessen.wsgi --log-file -
