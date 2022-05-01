@@ -4,7 +4,6 @@ from django.urls import reverse_lazy
 
 
 class CLoginView(LoginView):
-    print('llega')
     template_name = 'login.html'
     fields = '__all__'
     redirect_authenticated_user = True
