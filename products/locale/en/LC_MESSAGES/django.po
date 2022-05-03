@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-03 09:51-0300\n"
+"POT-Creation-Date: 2022-05-03 14:20-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,63 +17,64 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\products\templates\product_list.html:19
+#: .\templates\product_list.html:19
 msgid "Product"
 msgstr ""
 
-#: .\products\templates\product_list.html:24
-#: .\products\templates\products\product_form.html:46
+#: .\templates\product_list.html:24 .\templates\products\product_form.html:46
 msgid "Category"
 msgstr "Category"
 
-#: .\products\templates\product_list.html:31
+#: .\templates\product_list.html:31
 msgid "IncludeDisabled"
 msgstr "Include Disabled"
 
-#: .\products\templates\product_list.html:35
+#: .\templates\product_list.html:35
 msgid "Search"
 msgstr "Search"
 
-#: .\products\templates\product_list.html:38
-#: .\products\templates\product_list.html:52
+#: .\templates\product_list.html:38
 msgid "NewProduct"
 msgstr "New Product"
 
-#: .\products\templates\product_list.html:59
-#: .\products\templates\products\product_form.html:20
+#: .\templates\product_list.html:52
+#, fuzzy
+#| msgid "NewProduct"
+msgid "Products"
+msgstr "New Product"
+
+#: .\templates\product_list.html:59 .\templates\products\product_form.html:20
 msgid "Name"
 msgstr "Name"
 
-#: .\products\templates\product_list.html:60
-#: .\products\templates\products\product_form.html:32
+#: .\templates\product_list.html:60 .\templates\products\product_form.html:32
 msgid "Price"
 msgstr "Price"
 
-#: .\products\templates\product_list.html:61
-#: .\products\templates\products\product_form.html:39
+#: .\templates\product_list.html:61 .\templates\products\product_form.html:39
 msgid "Stock"
 msgstr "Stock"
 
-#: .\products\templates\product_list.html:62
+#: .\templates\product_list.html:62
 msgid "Status"
 msgstr "Status"
 
-#: .\products\templates\products\product_confirm_delete.html:6
+#: .\templates\products\product_confirm_delete.html:6
 msgid "GoBack"
 msgstr "Go Back"
 
-#: .\products\templates\products\product_confirm_delete.html:12
+#: .\templates\products\product_confirm_delete.html:12
 msgid "Areyoursure"
 msgstr "Areyoursure"
 
-#: .\products\templates\products\product_form.html:25
+#: .\templates\products\product_form.html:25
 msgid "Description"
 msgstr "Description"
 
-#: .\products\templates\products\product_form.html:56
+#: .\templates\products\product_form.html:56
 msgid "Active"
 msgstr "Active"
 
-#: .\products\templates\products\product_form.html:61
+#: .\templates\products\product_form.html:61
 msgid "SaveProduct"
 msgstr "Save Product"

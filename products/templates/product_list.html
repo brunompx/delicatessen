@@ -1,6 +1,7 @@
 {% extends 'base.html' %} 
 {% block page_content %}
 {% load myfilters %}
+{% load i18n %}
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
 
@@ -16,26 +17,26 @@
                 {% csrf_token %}
                 <div class="col-auto">
                     {{ form.name.errors }}
-                    <label class="visually-hidden" for="{{ form.name.id_for_label }}">{% trans 'Product' %}</label>
+                    <label class="visually-hidden" for="{{ form.name.id_for_label }}">Product</label>
                     {{ form.name|addclass:'form-control' }}
                 </div>
                 <div class="col-auto">
                     {{ form.category.errors }}
-                    <label class="visually-hidden" for="{{ form.category.id_for_label }}">{% trans 'Category' %}</label>
+                    <label class="visually-hidden" for="{{ form.category.id_for_label }}">Category</label>
                     {{ form.category|addclass:'form-control' }}
                 </div>
                 <div class="col-auto">
                     <div class="form-check">
                         {{ form.active.errors }}
                         {{ form.active|addclass:'form-check-input' }}
-                        <label for="{{ form.active.id_for_label }}">{% trans 'IncludeDisabled' %}</label>
+                        <label for="{{ form.active.id_for_label }}">Include Disabled</label>
                     </div>             
                 </div>
                 <div class="col-auto">
-                    <button type="submit" class="btn btn-outline-dark">{% trans 'Search' %}</button>
+                    <button type="submit" class="btn btn-outline-dark">{% translate 'Search' %}</button>
                 </div>
                 <div class="col-auto">
-                    <a class="btn btn-outline-dark" href="{% url 'product-create' %}" role="button">{% trans 'NewProduct' %}</a>
+                    <a class="btn btn-outline-dark" href="{% url 'product-create' %}" role="button">{% translate 'NewProduct' %}</a>
                 </div>
             </div>
         </form>
@@ -49,7 +50,7 @@
 
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">{% trans 'NewProduct' %}Products</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{% translate 'Products' %}</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
