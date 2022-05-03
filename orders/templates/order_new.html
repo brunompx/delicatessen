@@ -39,7 +39,7 @@
                                         <span>$ {{product.price|floatformat:2}}</span>
                                         <span>{{product.stock}}</span>
                                         <button data-product="{{product.id}}" data-action="add"
-                                                class="btn btn-outline-secondary add-btn update-cart btn-sm">Add</button>
+                                                class="btn btn-outline-secondary add-btn update-cart btn-sm">{% translate 'Add' %}</button>
                                     </div>
                                 </div>
                                 {% endif %}
@@ -55,7 +55,7 @@
         <div class="col-lg-5">
             <div class="card position-sticky top-0">
                 <div class="p-3 bg-light bg-opacity-10">
-                    <h6 class="card-title mb-3">{% translate 'ordersummary' %}</h6>
+                    <h6 class="card-title mb-3">{% translate 'OrderSummary' %}</h6>
                     <div id="summary">
                     </div>
                     <hr>

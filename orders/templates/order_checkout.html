@@ -28,26 +28,31 @@
                         {{ form.name|addclass:'form-control' }}
                     </div>
                     <div class="mb-3">
-                        {{ form.comment.errors }}
-                        <label for="{{ form.comment.id_for_label }}">{% translate 'comment' %}</label>
-                        {{ form.comment|addclass:'form-control' }}
+                        {{ form.delivery_time.errors }}
+                        <label for="{{ form.delivery_time.id_for_label }}">{% translate 'DeliveryTime' %}</label>
+                        {{ form.delivery_time|addclass:'form-control' }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.delivery_info.errors }}
+                        <label for="{{ form.delivery_info.id_for_label }}">{% translate 'DeliveryInfo' %}</label>
+                        {{ form.delivery_info|addclass:'form-control' }}
                     </div>
                     <div class="mb-3">
                         <div class="form-check">
                             {{ form.paid.errors }}
                             {{ form.paid|addclass:'form-check-input' }}
-                            <label for="{{ form.paid.id_for_label }}">{% translate 'paid' %}</label>
+                            <label for="{{ form.paid.id_for_label }}">{% translate 'Paid' %}</label>
                         </div>             
                     </div>
                     <div class="mb-3">
                         <div class="form-check">
                             {{ form.delivered.errors }}
                             {{ form.delivered|addclass:'form-check-input' }}
-                            <label for="{{ form.delivered.id_for_label }}">{% translate 'delivered' %}</label>
+                            <label for="{{ form.delivered.id_for_label }}">{% translate 'Delivered' %}</label>
                         </div>             
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-outline-dark">{% translate 'saveorder' %}</button>
+                        <button type="submit" class="btn btn-outline-dark">{% translate 'SaveOrder' %}</button>
                     </div>
                    
                 </form>
@@ -63,7 +68,7 @@
         <div class="col-lg-5">
             <div class="card position-sticky top-0">
                 <div class="p-3 bg-light bg-opacity-10">
-                    <h6 class="card-title mb-3">{% translate 'ordersummary' %}</h6>
+                    <h6 class="card-title mb-3">{% translate 'OrderSummary' %}</h6>
                     {% for item in items %}
                     <div id="oi-row-${i}" class="d-flex w-100 justify-content-between mb-1 small">
                         <div class="d-flex w-50 justify-content-left">

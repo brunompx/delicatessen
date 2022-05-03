@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 23:20-0300\n"
+"POT-Creation-Date: 2022-05-03 09:37-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,53 +16,80 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\templates\order_checkout.html:7
-#: .\templates\orders\order_confirm_delete.html:6
+#: .\orders\templates\order_checkout.html:8
+#: .\orders\templates\orders\order_confirm_delete.html:7
 msgid "goback"
 msgstr "Atras"
 
-#: .\templates\order_checkout.html:26
+#: .\orders\templates\order_checkout.html:27
 msgid "name"
 msgstr "Nombre"
 
-#: .\templates\order_checkout.html:31
-msgid "comment"
-msgstr "Comentario"
+#: .\orders\templates\order_checkout.html:32
+#: .\orders\templates\orders\order_form.html:26
+msgid "DeliveryTime"
+msgstr "Hora de Entrega"
 
-#: .\templates\order_checkout.html:38 .\templates\orders\order_list.html:42
-msgid "paid"
-msgstr "Pagado"
+#: .\orders\templates\order_checkout.html:37
+#: .\orders\templates\orders\order_form.html:31
+msgid "DeliveryInfo"
+msgstr "Info Entrega"
 
-#: .\templates\order_checkout.html:45 .\templates\orders\order_list.html:47
-msgid "delivered"
+#: .\orders\templates\order_checkout.html:44
+#: .\orders\templates\orders\order_form.html:40
+#: .\orders\templates\orders\order_list.html:49
+msgid "Paid"
+msgstr "Pago"
+
+#: .\orders\templates\order_checkout.html:51
+#: .\orders\templates\orders\order_form.html:49
+#: .\orders\templates\orders\order_list.html:54
+msgid "Delivered"
 msgstr "Entregado"
 
-#: .\templates\order_checkout.html:49
-msgid "saveorder"
+#: .\orders\templates\order_checkout.html:55
+#: .\orders\templates\orders\order_form.html:60
+msgid "SaveOrder"
 msgstr "Guardar Pedido"
 
-#: .\templates\order_checkout.html:65 .\templates\order_new.html:57
-msgid "ordersummary"
+#: .\orders\templates\order_checkout.html:71
+#: .\orders\templates\order_new.html:58
+msgid "OrderSummary"
 msgstr "Resumen Pedido"
 
-#: .\templates\order_new.html:7
+#: .\orders\templates\order_new.html:8
 msgid "cancellupdate"
 msgstr "Cancelar"
 
-#: .\templates\order_new.html:64
+#: .\orders\templates\order_new.html:42
+msgid "Add"
+msgstr "Agregar"
+
+#: .\orders\templates\order_new.html:65
 msgid "ordercheckout"
 msgstr "Finalizar Pedido"
 
-#: .\templates\orders\order_confirm_delete.html:12
+#: .\orders\templates\orders\order_confirm_delete.html:13
 msgid "suredelete"
-msgstr "Estas seguro que queres borrar?"
+msgstr "Esta seguro que desea borrarlo?"
 
-#: .\templates\orders\order_list.html:44
-msgid "notpaid"
-msgstr "No Pagado"
+#: .\orders\templates\orders\order_form.html:7
+msgid "Back"
+msgstr "Atras"
 
-#: .\templates\orders\order_list.html:49
-msgid "notdelivered"
+#: .\orders\templates\orders\order_form.html:21
+msgid "Name"
+msgstr "Nombre"
+
+#: .\orders\templates\orders\order_form.html:56
+msgid "Price"
+msgstr "Precio"
+
+#: .\orders\templates\orders\order_list.html:51
+msgid "NotPaid"
+msgstr "No Pago"
+
+#: .\orders\templates\orders\order_list.html:56
+msgid "NotDelivered"
 msgstr "No Entregado"

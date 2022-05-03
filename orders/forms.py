@@ -19,10 +19,10 @@ from .models import Order
 class OrderForm(ModelForm):
     class Meta:
         model = Order
-        fields = ['name', 'comment', 'paid', 'delivered']
-        widgets = {
-            'comment': Textarea(attrs={'rows': 2}),
-        }
+        fields = ['name', 'delivery_time', 'delivery_info', 'paid', 'delivered']
+        # widgets = {
+        #     'comment': Textarea(attrs={'rows': 2}),
+        # }
     def clean(self):
         data = self.cleaned_data
         name = data.get("name")
@@ -33,10 +33,10 @@ class OrderForm(ModelForm):
 class OrderUpdateForm(ModelForm):
     class Meta:
         model = Order
-        fields = ['name', 'comment', 'paid', 'delivered', 'price']
-        widgets = {
-            'comment': Textarea(attrs={'rows': 2}),
-        }
+        fields = ['name', 'delivery_time', 'delivery_info', 'paid', 'delivered', 'price']
+        # widgets = {
+        #     'comment': Textarea(attrs={'rows': 2}),
+        # }
     def clean(self):
         data = self.cleaned_data
         name = data.get("name")

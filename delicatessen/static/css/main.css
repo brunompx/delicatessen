@@ -4046,7 +4046,7 @@ input[type="button"].btn-block {
 
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: #6e707e;
+  color: #1f1f25;
   background-color: #fff;
   border-color: #dddfeb #dddfeb #fff;
 }
@@ -6395,7 +6395,7 @@ button.bg-secondary:focus {
 }
 
 .bg-success {
-  background-color: #1cc88a !important;
+  background-color: #edd2cb !important;
 }
 
 a.bg-success:hover, a.bg-success:focus,
@@ -11556,18 +11556,29 @@ body{
 }
 
 .widget-49 .widget-49-meeting-points {
-  font-weight: 400;
+  font-weight: 500;
   font-size: 13px;
   margin-top: .5rem;
 }
 
 .widget-49 .widget-49-meeting-points .widget-49-meeting-item {
-  display: list-item;
+  /* display: list-item; */
   color: #727686;
 }
 
 .widget-49 .widget-49-meeting-points .widget-49-meeting-item span {
   margin-left: .5rem;
+}
+
+.widget-49 .widget-49-meeting-points .widget-49-meeting-item {
+  /* display: list-item; */
+  color: #727686;
+}
+
+.total-price-item {
+  margin-left: 7rem;
+  font-size: 14px;
+  color: #433e3d;
 }
 
 .widget-49 .widget-49-meeting-action {

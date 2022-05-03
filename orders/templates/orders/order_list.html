@@ -11,43 +11,46 @@
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card card-margin">
                     <div class="card-header no-border container-fluid">
-                        <div class="row">
-                            <div class="col-md-10">
+
+                        <div class="d-flex w-100 justify-content-between mb-1">
+                            <div class="d-flex w-50 justify-content-left">
                                 <h5 class="card-title"><a href="{% url 'order-update' order.id %}" class="text-decoration-none">{{order.name}}</a></h5>
                             </div>
-                            <div class="col-md-2">
-                                <div class="float-right">
-                                    <a href="{% url 'order_delete' order.id %}" class="text-decoration-none"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                </div>
+                            <div class="d-flex w-50 justify-content-between">
+                                <a href="{% url 'print_pdf_kitchen' order.id %}" class="text-decoration-none"><i class="fa fa-print fa-lg" aria-hidden="true"></i></a>
+                                <a href="{% url 'print_pdf_client' order.id %}" class="text-decoration-none"><i class="fa fa-user-o fa-lg" aria-hidden="true"></i></a>
+                                <a href="{% url 'order_delete' order.id %}" class="text-decoration-none"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                             </div>
                         </div>
+
                     </div>
                     <div class="card-body pt-0">
                         <div class="widget-49">
                             <div class="widget-49-title-wrapper">
                                 <div class="widget-49-meeting-info">
-                                    <span class="widget-49-pro-title">{{order.comment}}</span>
+                                    <span class="widget-49-pro-title">- {{order.delivery_time}}</span>
+                                    <span class="widget-49-pro-title">- {{order.delivery_info}}</span>
                                     <span class="widget-49-meeting-time">{{order.checkout_date}}</span>
                                 </div>
                             </div>
-                            <ol class="widget-49-meeting-points">
+                            <div class="widget-49-meeting-points">
                                 {% for item in order_items %}
                                     {% if item.order.slug == order.slug %}
-                                    <li class="widget-49-meeting-item"><span>{{item.product.name}} x{{item.quantity}}</span></li>
+                                    <div class="widget-49-meeting-item"><span>- {{item.product.name}} x{{item.quantity}}</span></div>
                                     {% endif %}
                                 {% endfor %}
-                                <li class="widget-49-meeting-item"><span>$ {{order.price}}</span></li>
-                            </ol>
+                                <div class="total-price-item">$ {{order.price}}</div>
+                            </div>
                             <div class="widget-49-meeting-action">
                                 {% if order.paid == True %}
-                                <a href="{% url 'order_update_paid' order.id %}" class="btn btn-sm btn-flash-border-warning btn-done">{% translate 'paid' %}</a>
+                                <a href="{% url 'order_update_paid' order.id %}" class="btn btn-sm btn-flash-border-warning btn-done">{% translate 'Paid' %}</a>
                                 {% else %}
-                                <a href="{% url 'order_update_paid' order.id %}" class="btn btn-sm btn-flash-border-warning btn-not-done">{% translate 'notpaid' %}</a>
+                                <a href="{% url 'order_update_paid' order.id %}" class="btn btn-sm btn-flash-border-warning btn-not-done">{% translate 'NotPaid' %}</a>
                                 {% endif %}
                                 {% if order.delivered == True %}
-                                <a href="{% url 'order_update_delivered' order.id %}" class="btn btn-sm btn-flash-border-warning btn-done">{% translate 'delivered' %}</a>
+                                <a href="{% url 'order_update_delivered' order.id %}" class="btn btn-sm btn-flash-border-warning btn-done">{% translate 'Delivered' %}</a>
                                 {% else %}
-                                <a href="{% url 'order_update_delivered' order.id %}" class="btn btn-sm btn-flash-border-warning btn-not-done">{% translate 'notdelivered' %}</a>
+                                <a href="{% url 'order_update_delivered' order.id %}" class="btn btn-sm btn-flash-border-warning btn-not-done">{% translate 'NotDelivered' %}</a>
                                 {% endif %}
                             </div>
                         </div>

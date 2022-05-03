@@ -25,6 +25,8 @@ class Order(models.Model):
     delivered = models.BooleanField(default = False)
     if_cancelled = models.BooleanField(default = False)
     price = models.FloatField(null=True, blank=True)
+    delivery_time = models.CharField(max_length=250)
+    delivery_info = models.CharField(max_length=250)
 
     def save(self, *args, **kwargs):
         if not self.slug:

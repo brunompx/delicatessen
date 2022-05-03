@@ -9,9 +9,10 @@ from .views import (
     DeleteOrder,
     order_update_paid_view,
     order_update_delivered_view,
-    OrderUpdate,
     order_update_view,
-    order_update_cancel_view
+    order_update_cancel_view,
+    print_pdf_kitchen_view,
+    print_pdf_client_view
 )
 
 urlpatterns = [
@@ -26,6 +27,8 @@ urlpatterns = [
     path('order_update_delivered/<int:id>/', order_update_delivered_view, name='order_update_delivered'),
     path('order-update/<int:id>/', order_update_view, name='order-update'),
     path('order-update-cancel/<int:id>/', order_update_cancel_view, name='order-update-cancel'),
+    path('print_pdf_kitchen/<int:id>/', print_pdf_kitchen_view, name='print_pdf_kitchen'),
+    path('print_pdf_client/<int:id>/', print_pdf_client_view, name='print_pdf_client'),
 
     path('', OrderList.as_view(), name='index'),
     path('orders', OrderList.as_view(), name='orders'),

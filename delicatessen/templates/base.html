@@ -66,22 +66,22 @@
     <div class="container justify-content-center">
       <ul class="navbar-nav justify-content-center">
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'order_new' %}">New Order</a>
+          <a class="nav-link" href="{% url 'order_new' %}">{% translate 'NewOrder' %}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'orders' %}">Orders</a>
+          <a class="nav-link" href="{% url 'orders' %}">{% translate 'Orders' %}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'products' %}">Products</a>
+          <a class="nav-link" href="{% url 'products' %}">{% translate 'Products' %}</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dashboard
+            {% translate 'Dashboard' %}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{% url 'category_dash' %}">Categories</a></li>
-            <li><a class="dropdown-item" href="{% url 'product_dash' %}">Products</a></li>
-            <li><a class="dropdown-item" href="{% url 'order_dash' %}">Orders</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_dash' %}">{% translate 'Categories' %}</a></li>
+            <li><a class="dropdown-item" href="{% url 'product_dash' %}">{% translate 'Products' %}</a></li>
+            <li><a class="dropdown-item" href="{% url 'order_dash' %}">{% translate 'Orders' %}</a></li>
           </ul>
         </li>
         <li class="nav-item">

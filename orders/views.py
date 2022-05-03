@@ -1,5 +1,6 @@
 import json
 from datetime import datetime, timedelta
+from django.http import FileResponse
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.generic.list import ListView
@@ -9,8 +10,9 @@ from django.urls import reverse_lazy
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+
 from .models import Order, OrderItem
-from .utils import  order_data
+from .utils import  order_data, build_pdf_kitchen, build_pdf_client
 from .serializers import OrderItemSerializer
 from .forms import OrderForm, OrderUpdateForm
 from products.models import Product, Category
@@ -113,6 +115,14 @@ def order_update_cancel_view(request, id=None):
         order.complete = True
         order.save()
     return redirect('orders')
+
+def print_pdf_kitchen_view(request, id=None):
+    buffer = build_pdf_kitchen(request, id)
+    return FileResponse(buffer, as_attachment=True, filename=f"ticket_kitchen_{id}.pdf")
+
+def print_pdf_client_view(request, id=None):
+    buffer = build_pdf_client(request, id)
+    return FileResponse(buffer, as_attachment=True, filename=f"ticket_client_{id}.pdf")
 
 
 # API Views ----------------------------------------------------------------

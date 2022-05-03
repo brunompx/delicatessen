@@ -11,11 +11,13 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+from os.path import join
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 MASTER_BASE_DIR = Path(__file__).resolve()
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -59,6 +61,16 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'delicatessen.urls'
+
+
+LOCALE_PATHS = (
+    join(BASE_DIR, '/conf/locale'),
+    join(BASE_DIR, 'orders', 'locale'),
+    join(BASE_DIR, 'products', 'locale'),
+    join(BASE_DIR, 'authentication', 'locale'),
+    join(BASE_DIR, 'dashboard', 'locale'),
+    join(BASE_DIR, 'delicatessen', 'locale'),
+)
 
 TEMPLATES = [
     {

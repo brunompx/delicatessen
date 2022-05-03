@@ -42,7 +42,7 @@
                     {{ form.category|addclass:'form-control' }}
                 </div>
                 <div class="col-auto">
-                    <button type="submit" class="btn btn-outline-dark">Submit</button>
+                    <button type="submit" class="btn btn-outline-dark">{% translate 'Submit' %}</button>
                 </div>
             </div>
         </form>
@@ -62,7 +62,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Sales</div>
+                                {% translate 'Sales' %}</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count }}</div>
                         </div>
                         <div class="col-auto">
@@ -79,7 +79,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Earnings</div>
+                                {% translate 'Earnings' %}</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">$ {{ amount }}</div>
                         </div>
                         <div class="col-auto">
@@ -100,7 +100,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Sales</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% translate 'Sales' %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -116,14 +116,14 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Earnings by Category</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% translate 'EarningsbyCategory' %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="chart-pie pt-4 pb-2">
                         <canvas id="pieChart"></canvas>
                     </div>
-                    <div class="mt-4 text-center small">
+                    <!-- <div class="mt-4 text-center small">
                         <span class="mr-2">
                             <i class="fas fa-circle text-primary"></i> Direct
                         </span>
@@ -133,7 +133,7 @@
                         <span class="mr-2">
                             <i class="fas fa-circle text-info"></i> Referral
                         </span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -143,18 +143,18 @@
     <div class="row">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Sales</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{% translate 'Sales' %}</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th scope="col">Date</th>
-                                <th scope="col">Order</th>
-                                <th scope="col">Product</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Value</th>
+                                <th scope="col">{% translate 'Date' %}</th>
+                                <th scope="col">{% translate 'Order' %}</th>
+                                <th scope="col">{% translate 'Product' %}</th>
+                                <th scope="col">{% translate 'Quantity' %}</th>
+                                <th scope="col">{% translate 'Value' %}</th>
                             </tr>
                         </thead>
                         <tbody>
