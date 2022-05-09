@@ -67,7 +67,13 @@ body {
   color: #858796;
   text-align: left;
   background-color: #fff;
+  /* background-color: #361d32; */
 }
+
+.body-back {
+  background-color: #361d32;
+}
+
 
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;
@@ -4411,11 +4417,17 @@ input[type="button"].btn-block {
 }
 
 .navbar-dark .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 1);
+  font-weight: 500;
+  font-size: 22px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
-  color: rgba(255, 255, 255, 0.75);
+  color: #f55951;
+  font-weight: 750;
+  font-size: 22px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .navbar-dark .navbar-nav .nav-link.disabled {
@@ -4456,7 +4468,7 @@ input[type="button"].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: #edd2cb;
   background-clip: border-box;
   border: 1px solid #e3e6f0;
   border-radius: 0.35rem;
@@ -4520,8 +4532,8 @@ input[type="button"].btn-block {
   padding: 0.75rem 1.25rem;
   margin-top: 10px;
   margin-bottom: 0;
-  background-color: #f8f9fc;
-  border-bottom: 1px solid #e3e6f0;
+  background-color: #edd2cb;
+  border-bottom: 1px solid #edd2cb;
 }
 
 .card-header:first-child {
@@ -4530,8 +4542,8 @@ input[type="button"].btn-block {
 
 .card-footer {
   padding: 0.75rem 1.25rem;
-  background-color: #f8f9fc;
-  border-top: 1px solid #e3e6f0;
+  background-color: #edd2cb;
+  border-top: 1px solid #edd2cb;
 }
 
 .card-footer:last-child {
@@ -6395,7 +6407,7 @@ button.bg-secondary:focus {
 }
 
 .bg-success {
-  background-color: #edd2cb !important;
+  background-color: #543c52 !important;
 }
 
 a.bg-success:hover, a.bg-success:focus,
@@ -11597,4 +11609,43 @@ body{
 .btn-done {
   font-weight: 400;
   color: #1cc88a;
+}
+
+
+
+.claro-uno,
+.claro-uno:active {
+  color: #000000;
+  background-color: #edd2cb;
+}
+
+.claro-uno:focus,
+.claro-uno:hover,
+.claro-uno:visited,
+.claro-uno:link {
+  color: #000000;
+  background-color: #edd2cb;
+}
+
+.claro-uno:not(.collapsed) {
+  color: #000000;
+  background-color: #edd2cb;
+}
+
+.claro-dos {
+  color: #000000;
+  background-color: #f1e8e6;
+}
+
+.button-custom {
+  background-color: #edd2cb;
+  color: #000000;
+  /* font-weight: 700; */
+  /* text-transform: uppercase; */
+}
+
+.button-custom:focus,
+.button-custom:hover {
+  color: #eee;
+  background-color: #f55951;
 }

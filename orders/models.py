@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from django.utils import timezone
 from products.models import Product
 import random
 
@@ -17,9 +18,9 @@ class Order(models.Model):
     name = models.CharField(max_length=250)
     slug = models.SlugField(max_length=100, unique=True)
     comment = models.TextField(null=True, blank=True)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    checkout_date = models.DateTimeField(null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True) #default=timezone.now()
+    updated = models.DateTimeField(auto_now=True) #default=timezone.now()
+    checkout_date = models.DateTimeField(null=True, blank=True) #default=timezone.now()
     complete = models.BooleanField(default = False)
     paid = models.BooleanField(default = False)
     delivered = models.BooleanField(default = False)
@@ -30,7 +31,7 @@ class Order(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.user.username + datetime.now().strftime("%Y%m%d%H%M%S"))
+            self.slug = slugify(self.user.username +  timezone.now().strftime("%Y%m%d%H%M%S"))
         return super().save(*args, **kwargs)
     
     def __str__(self):

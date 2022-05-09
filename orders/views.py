@@ -6,7 +6,9 @@ from django.http import JsonResponse
 from django.views.generic.list import ListView
 from django.views.generic.edit import DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
+from django.utils import timezone
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -20,6 +22,7 @@ from products.models import Product, Category
 
 # Function Views ----------------------------------------------------------------
 
+@login_required
 def order_new_view(request):
     data = order_data(request)
     order = data['order']
@@ -36,6 +39,7 @@ def order_new_view(request):
         }
     return render(request, 'order_new.html', context)
 
+@login_required
 def order_update_item_view(request):
     data = json.loads(request.body)
     productId = data['productId']
@@ -57,6 +61,7 @@ def order_update_item_view(request):
         orderItem.delete()
     return JsonResponse('Item was added', safe=False)
 
+@login_required
 def order_checkout_view(request):
     data = order_data(request)
     order = data['order']
@@ -72,7 +77,7 @@ def order_checkout_view(request):
     if form.is_valid():
         order_object = form.save()
         order_object.complete = True
-        order_object.checkout_date = datetime.today()
+        order_object.checkout_date = timezone.now()
         order_object.price = order_object.get_order_total
         order_object.save()
         for item in order_object.orderitem_set.all():
@@ -85,6 +90,7 @@ def order_checkout_view(request):
         return redirect('orders')
     return render(request, 'order_checkout.html', context)
 
+@login_required
 def order_update_paid_view(request, id=None):
     if id is not None:
         order = Order.objects.get(id=id)
@@ -92,6 +98,7 @@ def order_update_paid_view(request, id=None):
         order.save()
     return redirect('orders')
 
+@login_required
 def order_update_delivered_view(request, id=None):
     if id is not None:
         order = Order.objects.get(id=id)
@@ -99,6 +106,7 @@ def order_update_delivered_view(request, id=None):
         order.save()
     return redirect('orders')
 
+@login_required
 def order_update_view(request, id=None):
     user = request.user
     if id is not None:
@@ -108,6 +116,7 @@ def order_update_view(request, id=None):
         order.save()
     return redirect('order_new')
 
+@login_required
 def order_update_cancel_view(request, id=None):
     user = request.user
     if id is not None:
@@ -116,10 +125,12 @@ def order_update_cancel_view(request, id=None):
         order.save()
     return redirect('orders')
 
+@login_required
 def print_pdf_kitchen_view(request, id=None):
     buffer = build_pdf_kitchen(request, id)
     return FileResponse(buffer, as_attachment=True, filename=f"ticket_kitchen_{id}.pdf")
 
+@login_required
 def print_pdf_client_view(request, id=None):
     buffer = build_pdf_client(request, id)
     return FileResponse(buffer, as_attachment=True, filename=f"ticket_client_{id}.pdf")
@@ -143,7 +154,7 @@ class OrderList(LoginRequiredMixin, ListView):
     context_object_name = 'orders'
 
     def get_queryset(self):
-        time_filter = datetime.today() - timedelta(hours=200)
+        time_filter =  timezone.now() - timedelta(hours=200)
         queryset = Order.objects.filter(user=self.request.user, complete=True, checkout_date__gt=time_filter)
         queryset = queryset.order_by('-checkout_date')
         return queryset

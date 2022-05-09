@@ -4,13 +4,14 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import redirect
 
 from .models import Product
 from .forms import ProductListForm, ProductForm
 
-
+@login_required
 def product_list_view(request):
     context = {}
     if request.method == 'POST':

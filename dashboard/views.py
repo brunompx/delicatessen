@@ -1,5 +1,6 @@
 import json
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from .forms import FromToForm, SalesByCategoryForm, SalesByProductForm, SalesByOrderForm
 from .utils import (
     categories_amount_by_date_range, 
@@ -9,7 +10,7 @@ from .utils import (
 from orders.models import OrderItem, Order
 
 
-
+@login_required
 def sales_by_category_view(request):
     context = {}
     if request.method == 'POST':
@@ -46,6 +47,7 @@ def sales_by_category_view(request):
     return render(request, 'category_dash.html', context)
 
 
+@login_required
 def sales_by_product_view(request):
     context = {}
     if request.method == 'POST':
@@ -71,6 +73,7 @@ def sales_by_product_view(request):
     return render(request, 'product_dash.html', context)
 
 
+@login_required
 def sales_by_order_view(request):
     context = {}
     if request.method == 'POST':
