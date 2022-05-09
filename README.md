@@ -3,8 +3,8 @@
 
 Delivery and take-away restaurant management app.
 
---------------
 
+--------------
 ### App Features
 
 - Orders management
@@ -14,7 +14,7 @@ Delivery and take-away restaurant management app.
 
 Goals: The app is ligth, intuitive and easy to use in a fast-paced work environment.
 
-
+--------
 ### Tech features & Stack
 
 - Django web app with some vanilla JS
@@ -28,6 +28,7 @@ Goals: The app is ligth, intuitive and easy to use in a fast-paced work environm
 
 The system don't needs custom users registration feature, staff users are managed via admin screen. 
 
+--------
 ### Live DEMO
 
 [Delicatessen App DEMO](https://delicatessen-demo.herokuapp.com/)
@@ -36,9 +37,10 @@ Credentials:  DemoUser / Demopassword
 
 Note: the demo instance use an sqlite DB, data will not persist in future.
 
+--------
 ### Some Screens
 
-
+--------
 ### Future
 - React.js frontend
 - Optimization for tablets, possible React native version.
