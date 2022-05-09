@@ -26,7 +26,6 @@ Goals: The app is ligth, intuitive and easy to use in a fast-paced work environm
 - Locale translations English / Spanish
 
 
-The system don't needs custom users registration feature, staff users are managed via admin screen. 
 
 --------
 ### Live DEMO
