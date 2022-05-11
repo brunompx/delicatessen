@@ -64,10 +64,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 {% translate 'Sales' %}</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count }}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">   {{ count }}</div>
                         </div>
                     </div>
                 </div>
@@ -81,7 +78,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 {% translate 'Earnings' %}</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$ {{ amount }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">   $ {{ amount }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -124,17 +121,6 @@
                     <div class="chart-pie pt-4 pb-2">
                         <canvas id="pieChart"></canvas>
                     </div>
-                    <!-- <div class="mt-4 text-center small">
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-primary"></i> Direct
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-success"></i> Social
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-info"></i> Referral
-                        </span>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -188,6 +174,9 @@
 
 <script type="text/javascript" src="{% static '/js/dash.js' %}"></script>
 <script type="text/javascript">
+
+
+
 
     displayPieChart({{ pie_data| safe }}, {{ pie_labels| safe }});
     displayLineChart({{ line_data| safe }}, {{ line_labels| safe }});

@@ -29,9 +29,9 @@ def build_pdf_client(request, id):
     lines = []
     
     lines.append("---Angula Delivery---")
-    lines.append(" ------------------------- ")
-    lines.append(" --- " + order.name + " --- ")
-    lines.append(" ------------------------- ")
+    lines.append(" ----------------------------------------------- ")
+    lines.append(" ------------ " + order.name + " ------------ ")
+    lines.append(" ----------------------------------------------- ")
     lines.append(" ")
 
     for item in order.orderitem_set.all():
@@ -41,7 +41,7 @@ def build_pdf_client(request, id):
     lines.append(" ")
     lines.append("TOTAL :  $ " + str(order.price))
     lines.append(" ")
-    lines.append(" ------------------------- ")
+    lines.append(" ----------------------------------------------- ")
 
     for line in lines:
         text_o.textLine(line)
@@ -79,24 +79,24 @@ def build_pdf_kitchen(request, id):
 
     lines = []
     
-    lines.append(" ------------------------- ")
-    lines.append(" ------- " + order.name + " ------- ")
-    lines.append(" ------------------------- ")
-    lines.append(" ------- Hora: " + order.delivery_time + " ------- ")
-    lines.append(" ------------------------- ")
+    lines.append(" ----------------------------------------------- ")
+    lines.append(" ------------ " + order.name + " ------------ ")
+    lines.append(" ----------------------------------------------- ")
+    lines.append(" ------------ Hora: " + order.delivery_time + " ------------ ")
+    lines.append(" ----------------------------------------------- ")
     lines.append(" ")
 
     print(items_dic)
 
     for k, v in items_dic.items():
-        lines.append(" ------- " + k.upper() + " ------- ")
+        lines.append(" ------------ " + k.upper() + " ------------ ")
         lines.append(" ")
         for line in v:
             lines.append(line)
         lines.append(" ")
 
     lines.append(" ")
-    lines.append(" ------------------------- ")
+    lines.append(" ----------------------------------------------- ")
 
     for line in lines:
         text_o.textLine(line)

@@ -1,24 +1,28 @@
 
 
-function getPieChartData(productId, action) {
-	var url = '/order_update_item/'
-	fetch(url, {
-		method:'POST',
-		headers:{
-			'Content-Type':'application/json',
-			'X-CSRFToken':csrftoken,
-		}, 
-		body:JSON.stringify({'fromDate':fromDate, 'toDate':toDate})
-	})
-	.then((resp) => { return resp.json(); })
-	.then((data) => {
-		displayPieChart()
-	});
-}
+// function getPieChartData(productId, action) {
+// 	var url = '/order_update_item/'
+// 	fetch(url, {
+// 		method:'POST',
+// 		headers:{
+// 			'Content-Type':'application/json',
+// 			'X-CSRFToken':csrftoken,
+// 		}, 
+// 		body:JSON.stringify({'fromDate':fromDate, 'toDate':toDate})
+// 	})
+// 	.then((resp) => { return resp.json(); })
+// 	.then((data) => {
+// 		displayPieChart()
+// 	});
+// }
 
 
 // Pie Chart
 function displayPieChart(pieData, pieLabels) {
+
+    console.log(pieData);
+    console.log(pieLabels);
+
     var ctx = document.getElementById("pieChart");
     var customPieChart = new Chart(ctx, {
         type: 'doughnut',
@@ -26,8 +30,8 @@ function displayPieChart(pieData, pieLabels) {
             labels: pieLabels,
             datasets: [{
                 data: pieData,
-                backgroundColor: ['#ffca7a', '#f7a325', '#f56038', '#12492f'],
-                hoverBackgroundColor: ['#2e59d9', '#17a673', '#12492f', '#2c9faf'],
+                backgroundColor: randomColorsForChart(pieData.length),
+                hoverBackgroundColor: randomColorsForChart(pieData.length),
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
             }],
         },
@@ -44,9 +48,18 @@ function displayPieChart(pieData, pieLabels) {
                 caretPadding: 10,
             },
             legend: {
-                display: false
+                display: true,
+                position: 'bottom',
             },
             cutoutPercentage: 70,
+            plugins: {
+                datalabels: {
+                    display: true,
+                    formatter: (value) => {
+                        return value + '%';
+                    }
+                }
+            },
         },
     });
 }
@@ -141,6 +154,30 @@ function displayLineChart(lineData, lineLabels) {
             }
         }
     });
+}
+
+function randomColorsForChart(count) {
+    var colors = ["#12492f","#0a2f35","#f56038","#f7a325","#ffca7a","#543c52","#f55951","#edd2cb","#361d32"];
+    var ranColors = [];
+    var usedColors = [];
+    var previousColor = ""
+    while (ranColors.length < count) {
+        var ranNumber = Math.floor(Math.random() * 8);
+        currentColor = colors[ranNumber];
+        if (currentColor != previousColor) {
+            if (usedColors.length < colors.length) {
+                if (!usedColors.includes(currentColor)) {
+                    ranColors.push(currentColor);
+                    usedColors.push(currentColor);
+                    previousColor = currentColor
+                }
+            } else {
+                ranColors.push(currentColor);
+                previousColor = currentColor
+            }
+        }
+    }
+    return ranColors;
 }
 
 function number_format(number, decimals, dec_point, thousands_sep) {
