@@ -27,9 +27,9 @@ PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = 'django-insecure-@(_gz*958r5kfxo-m#$mbq&_vbvokh$!s6d(-sr1k##o-p_fl3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['delicatessen-angula.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['delicatessen-angula.herokuapp.com', 'delicatessen-demo.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
