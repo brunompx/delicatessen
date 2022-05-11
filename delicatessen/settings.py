@@ -102,10 +102,11 @@ DATABASES = {
     }
 }
 
-# import dj_database_url
+import dj_database_url
 
 # DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-
+db_hosting = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'].update(db_hosting)
 
 
 # Password validation
