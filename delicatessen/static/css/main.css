@@ -9568,7 +9568,7 @@ button.bg-dark:focus {
 }
 
 .text-primary {
-  color: #4e73df !important;
+  color: #865f83 !important;
 }
 
 a.text-primary:hover, a.text-primary:focus {
@@ -9964,7 +9964,7 @@ a:focus {
 }
 
 .text-xs {
-  font-size: .7rem;
+  font-size: 1rem;
 }
 
 .text-lg {
@@ -10017,7 +10017,7 @@ a:focus {
 }
 
 .border-left-primary {
-  border-left: 0.25rem solid #4e73df !important;
+  border-left: 0.25rem solid #f55951 !important;
 }
 
 .border-bottom-primary {
