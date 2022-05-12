@@ -27,7 +27,7 @@ PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = 'django-insecure-@(_gz*958r5kfxo-m#$mbq&_vbvokh$!s6d(-sr1k##o-p_fl3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['delicatessen-angula.herokuapp.com', 'delicatessen-demo.herokuapp.com', 'localhost', '127.0.0.1']
 
@@ -102,11 +102,11 @@ DATABASES = {
     }
 }
 
-import dj_database_url
+# import dj_database_url
 
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-db_hosting = dj_database_url.config(conn_max_age=600, ssl_require=True)
-DATABASES['default'].update(db_hosting)
+# # DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# db_hosting = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# DATABASES['default'].update(db_hosting)
 
 
 # Password validation
@@ -133,7 +133,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'America/Rosario'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
