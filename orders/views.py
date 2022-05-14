@@ -154,8 +154,10 @@ class OrderList(LoginRequiredMixin, ListView):
     context_object_name = 'orders'
 
     def get_queryset(self):
-        time_filter =  timezone.now() - timedelta(hours=200)
-        queryset = Order.objects.filter(user=self.request.user, complete=True, checkout_date__gt=time_filter)
+        # TODO In production time_filter will be set so only the day or the weekend orders are shown
+        # time_filter =  timezone.now() - timedelta(hours=72)
+        # queryset = Order.objects.filter(user=self.request.user, complete=True, checkout_date__gt=time_filter)
+        queryset = Order.objects.filter(user=self.request.user, complete=True)
         queryset = queryset.order_by('-checkout_date')
         return queryset
 

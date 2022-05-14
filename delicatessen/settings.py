@@ -102,11 +102,10 @@ DATABASES = {
     }
 }
 
-# import dj_database_url
-
-# # DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-# db_hosting = dj_database_url.config(conn_max_age=600, ssl_require=True)
-# DATABASES['default'].update(db_hosting)
+import dj_database_url
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+db_hosting = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'].update(db_hosting)
 
 
 # Password validation
@@ -131,9 +130,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'America/New_York'
+TIME_ZONE = 'America/Rosario'
 
 USE_I18N = True
 
